@@ -68,7 +68,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
                     }
                     break;
                 case Config.MESSAGE_WHAT_HTTP_REGISTER_SUCCESS:
-                    launchActivity(RegistActivity.this, LoginActivity.class, bundle1);
+                    launchActivity(RegistActivity.this, LoginActivity.class);
                     RegistActivity.this.finish();
                     break;
                 case Config.MESSAGE_WHAT_HTTP_REGISTER_FAIL:
@@ -155,7 +155,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
                 RequestParams params = new RequestParams();
                 params.add(Config.KEY_USERNAME, phonenum);
                 tv_get_identifying_code.setClickable(false);
-                AsyncRequest.ClientPost(Config.getRequestURL(Config.ACTION_FIND), params, new TextNetWorkCallBack() {
+                AsyncRequest.ClientPost(Config.getRequestURL(Config.ACTION_GET_USER), params, new TextNetWorkCallBack() {
                     @Override
                     public void onMySuccess(int statusCode, Header[] header, String result) {
                         boolean res = JsonParser.parseUsernameIsExist(result);

@@ -157,6 +157,8 @@
     <string name="result_uri">Found URL</string>
     <string name="result_wifi">Found WLAN Configuration</string>
     <string name="sbc_name">Google Book Search</string>
+    <string name="wifi_changing_network">Requesting connection to network\u2026</string>
+
 
     <string name="tv_function_not_finish">此功能尚未开发</string>
 </resources>

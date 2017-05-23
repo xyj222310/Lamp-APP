@@ -83,7 +83,7 @@ public class ReplacePasswordActivity extends BaseActivity {
                 RequestParams params = new RequestParams();
                 params.add("userId", phoneNum);
                 params.add("newPassword", newPassword);
-                String url = Config.getRequestURL(Config.ACTION_REPLACE);
+                String url = Config.getRequestURL(Config.ACTION_USER_UPDATE);
                 AsyncRequest.ClientPost(url, params, new TextNetWorkCallBack() {
                     @Override
                     public void onMySuccess(int statusCode, Header[] header, String result) {
