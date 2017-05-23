@@ -1,4 +1,4 @@
-package com.yjtse.lamp;
+package com.yjtse.lamp.ui;
 
 import android.content.Intent;
 import android.os.Message;
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.google.zxing.client.android.CaptureActivity;
+import com.yjtse.lamp.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,5 +1,39 @@
 <resources>
     <string name="app_name">Lamp</string>
+    
+    <string name="action_settings">Settings</string>
+    <string name="inputUsernameStr">输入用户手机号</string>
+    <string name="inputPasswordStr">请输入密码</string>
+    <string name="modemPasswordBtnStr">配置</string>
+    <string name="rememberPasswordStr">记住密码？</string>
+    <string name="remoteLoginBtnStr">登录</string>
+    <string name="forgetPasswordStr">忘记密码</string>
+    <string name="registAccount">用户注册</string>
+    <string name="hintNothing"> </string>
+    <string name="getIdentifyingCode">获取验证码</string>
+    <string name="comfirmBtnStr">确定</string>
+    <string name="registInputIndentifyCode">填写验证码</string>
+    <string name="registTitle">注册</string>
+    <string name="nextStep">下一步</string>
+    <string name="inputNewPassword">请输入新密码</string>
+    <string name="inputConfirmPassword">请确认新密码</string>
+    <string name="defaultDeviceValue">26.1</string>
+    <string name="wifiSettingStr">WIFI设置</string>
+    <string name="addDevice">设备添加</string>
+    <string name="selfCenterUserLogin">登录</string>
+    <string name="selfCenterUserNotLogin">未登录</string>
+    <string name="suggestFeedback">意见反馈</string>
+    <string name="helpCenter">帮助中心</string>
+    <string name="exit">退出</string>
+    <string name="systemVersion">系统版本</string>
+    <string name="passwordCanNotNone">密码不能为空</string>
+    <string name="passwordMustBeSame">密码不相同</string>
+    <string name="networkFail">网络请求失败，请稍后再试</string>
+    <string name="versionStr">demo&#160;&#160;v1.0</string>
+    <string name="online">●在线</string>
+    <string name="offline">●离线</string>
+
+
     <string name="app_picker_name">Applications</string>
     <string name="bookmark_picker_name">Bookmarks</string>
     <string name="button_add_calendar">Add to calendar</string>
@@ -123,5 +157,6 @@
     <string name="result_uri">Found URL</string>
     <string name="result_wifi">Found WLAN Configuration</string>
     <string name="sbc_name">Google Book Search</string>
-    <string name="wifi_changing_network">Requesting connection to network\u2026</string>
+
+    <string name="tv_function_not_finish">此功能尚未开发</string>
 </resources>

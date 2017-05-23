@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/hint_regist_string"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:text="@string/hintNothing"
+        android:layout_marginTop="70dp"
+        android:textColor="#ff0000"
+        android:textSize="14sp" />
+
+    <com.aircontrol.demo.widgets.ClearEditText
+        android:id="@+id/et_regist_input_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_below="@id/hint_regist_string"
+        android:background="@drawable/input_bg"
+        android:drawableRight="@drawable/et_delete_right"
+        android:maxLength="11"
+        android:inputType="number"
+        android:paddingLeft="15dp"
+        android:hint="@string/inputUsernameStr"
+        android:singleLine="true"
+        android:textColorHint="#bfc0c1" />
+    
+    <com.aircontrol.demo.widgets.ClearEditText
+        android:id="@+id/et_regist_input_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_regist_input_number"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/input_bg"
+        android:drawableRight="@drawable/et_delete_right"
+        android:ems="20"
+        android:paddingLeft="15dp"
+        android:inputType="textPassword"
+        android:hint="@string/inputPasswordStr"
+        android:singleLine="true"
+        android:textColorHint="#bfc0c1" />
+    
+    <com.aircontrol.demo.widgets.ClearEditText
+        android:id="@+id/et_regist_input_identifying_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_regist_input_password"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="140dp"
+        android:layout_marginTop="12dp"
+        android:inputType="number"
+        android:background="@drawable/input_bg"
+        android:drawableRight="@drawable/et_delete_right"
+        android:ems="20"
+        android:paddingLeft="15dp"
+        android:hint="@string/registInputIndentifyCode"
+        android:singleLine="true"
+        android:textColorHint="#bfc0c1" />
+
+    <TextView
+        android:id="@+id/tv_get_identifying_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_alignBottom="@+id/et_regist_input_identifying_code"
+        android:layout_alignRight="@id/et_regist_input_password"
+        android:layout_alignTop="@+id/et_regist_input_identifying_code"
+        android:layout_toLeftOf="@id/et_regist_input_identifying_code"
+        android:background="@drawable/verify_btn_corners"
+        android:textColor="#ff8d8e8e"
+        android:gravity="center"
+        android:clickable="true"
+        android:text="@string/getIdentifyingCode"
+        android:textSize="16sp" />
+
+    <com.andexert.library.RippleView
+        android:id="@+id/regist_ripple"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        rv_centered="true"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_below="@+id/et_regist_input_identifying_code">
+    <Button
+        android:id="@+id/btn_regist_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Ripple_Button_BG"
+        android:text="@string/comfirmBtnStr" />
+    </com.andexert.library.RippleView>
+
+</RelativeLayout>
