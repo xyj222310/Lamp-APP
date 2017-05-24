@@ -19,19 +19,30 @@ public class Socket {
 
     private String cron; //插座定时参数
 
+
+    private String available;
+
     private String statusTobe; //定时设定的状态
 
-    public Socket(String socketId, String socketName, String ownerId, String status, String cron, String statusTobe) {
+    public Socket(String socketId, String socketName, String ownerId, String status, String cron, String statusTobe,String available) {
         this.socketId = socketId;
         this.socketName = socketName;
         this.ownerId = ownerId;
         this.status = status;
         this.cron = cron;
         this.statusTobe = statusTobe;
+        this.available = available;
     }
 
     public Socket() {
 
+    }
+    public String getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(String available) {
+        this.available = available;
     }
 
     public Integer getId() {

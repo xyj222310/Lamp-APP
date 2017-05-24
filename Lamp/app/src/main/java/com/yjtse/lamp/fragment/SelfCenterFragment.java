@@ -63,7 +63,7 @@ public class SelfCenterFragment extends BaseFragment implements OnClickListener 
         if (TextUtils.isEmpty(phoneNum) || phoneNum == null) {
             self_center_user_login.setText(R.string.selfCenterUserNotLogin);
         } else {
-            self_center_user_login.setText(phoneNum);
+            self_center_user_login.setText(phoneNum+"-欢迎您");
         }
         if (userPass != null && !TextUtils.isEmpty(userPass)) //不为空，说明已经登陆，显示退出
         {

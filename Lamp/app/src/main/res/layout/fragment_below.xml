@@ -16,17 +16,18 @@
         android:orientation="horizontal"
         android:background="#123344"
         >
+
         <Button
             android:id="@+id/fm_below_mydevice"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_margin="0dp"
-            android:padding="0dp"
-            android:onClick="onTabClicked"
             style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_margin="0dp"
+            android:layout_weight="1"
             android:background="@drawable/belowbtn1_selector"
-            />
+            android:onClick="onTabClicked"
+            android:padding="0dp" />
+
         <Button
             android:id="@+id/fm_below_setting"
             android:layout_width="0dp"

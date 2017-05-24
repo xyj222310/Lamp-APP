@@ -25,6 +25,10 @@ public class User {
 
     private String role;
 
+    public User() {
+
+    }
+
     public long getId() {
         return id;
     }
