@@ -61,7 +61,9 @@ public class Config {
     /**
      * 服务器的路径
      */
-    public static final String SERVER_URL = "http://60.205.219.43";//服务器路径http://icloud.ticachina.com
+//    public static final String SERVER_URL = "http://60.205.219.43";//服务器路径http://icloud.ticachina.com
+    public static final String SERVER_URL = "http://192.168.191.1";//服务器路径http://icloud.ticachina.com
+
 
     /**
      * TCP通信端口
@@ -146,90 +148,71 @@ public class Config {
      * 登录失败
      */
     public static final int MESSAGE_WHAT_HTTP_LOGIN_FAIL = 108;
-    /**
-     * 查询网关数量成功
-     */
-    public static final int MESSAGE_WHAT_HTTP_SEARCH_GATEWAY_SUCCESS = 109;
-    /**
-     * 查询网关数量失败
-     */
-    public static final int MESSAGE_WHAT_HTTP_SEARCH_GATEWAY_FAIL = 110;
-    /**
-     * 查询IP地址和端口号成功
-     */
-    public static final int MESSAGE_WHAT_HTTP_SEARCH_IPPORT_SUCCESS = 111;
-    /**
-     * 查询IP地址和端口号成功
-     */
-    public static final int MESSAGE_WHAT_HTTP_SEARCH_IPPORT_FAIL = 112;
-    /**
-     * 修改密码成功
-     */
-    public static final int MESSAGE_WHAT_HTTP_REPLACE_SUCCESS = 119;
-    /**
-     * 修改密码失败
-     */
-    public static final int MESSAGE_WHAT_HTTP_REPLACE_FAIL = 120;
-
-
-    //UDP消息，用于发送系统消息的what值，从200开始
-    /**
-     * 设置SSID和PWD成功消息
-     */
-    public static final int MESSAGE_WHAT_UDP_SET_SSID_SUCCESS = 200;
-    /**
-     * 设置SSID和PWD失败消息
-     */
-    public static final int MESSAGE_WHAT_UDP_SET_SSID_FAIL = 201;
-    /**
-     * 查询个数成功消息
-     */
-    public static final int MESSAGE_WHAT_UDP_SEARCH_SUCCESS = 202;
-    /**
-     * 查询个数失败消息
-     */
-    public static final int MESSAGE_WHAT_UDP_SEARCH_FAIL = 203;
 
 
     /**
      * 查询用户action
+     * 必须携带的参数
+     * params: userId
      */
-    public static final String ACTION_GET_USER = "user";
+    public static final String ACTION_GET_USER = "user/query";
 
     /**
      * 登录请求的action
+     * 必须携带的参数
+     * *params: userId
+     * params: userPass
      */
     public static final String ACTION_LOGIN = "user/login";
 
     /**
-     * 注册请求的action
-     */
-    public static final String ACTION_USER_REGISTER = "user/register";
-
-    /**
      * 修改用户信息
+     * 必须携带的参数
+     * params: userId
+     * params: userPass
      */
     public static final String ACTION_USER_UPDATE = "user/update";
+
+    /**
+     * 改密码
+     * params: userId
+     * params: userPass
+     */
+    public static final String ACTION_USER_PASS_UPDATE = "user/updatePass";
+
+    /**
+     * 注册请求的action
+     * 必须携带的参数
+     * params: userId
+     * params: userPass
+     */
+    public static final String ACTION_USER_REGISTER = "user/register";
 
 
     /**
      * 添加设备action
+     * 携带参数socketId,ownerId,等
      */
     public static final String ACTION_ADD_DEVICE = "socket/register";
-
 
     /**
      * 查询设备action
      */
-    public static final String ACTION_GET_DEVICE = "socket";
+    public static final String ACTION_GET_DEVICE = "socket/query";
 
     /**
      * 修改设备信息
+     * 携带参数socketId,ownerId，socketName,status等
      */
     public static final String ACTION_DEVICE_UPDATE = "socket/update";
 
     /**
      * 设置设备定时action
+     * <p>
+     * (value = "localDateTime") String localDateTime,
+     * (value = "statusTobe") String statusTobe,
+     * (value = "socketId") String socketId,
+     * (value = "ownerId") String ownerId) {
      */
     public static final String ACTION_DEVICE_TIMING = "socket/updateCron";
 

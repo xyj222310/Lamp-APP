@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/self_center_user_logo"
+        android:layout_width="160dp"
+        android:layout_height="46dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/self_logo"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        android:id="@+id/self_center_user_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/self_center_user_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/selfCenterUserLogin"
+        android:textSize="24sp" />
+
+    <com.andexert.library.RippleView
+        android:id="@+id/relieveDeviceLinearLayout_ripple"
+        rv_centered="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/self_center_user_login"
+        android:layout_marginTop="20dp">
+
+        <RelativeLayout
+            android:id="@+id/relieveDeviceLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/relieve_device_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="15dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/suggestfeedback" />
+
+            <TextView
+                android:id="@+id/relieve_device_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/relieve_device_imageView"
+                android:gravity="center_horizontal"
+                android:text="@string/suggestFeedback"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/right_arrow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/right_arrow"
+                android:textSize="20sp" />
+        </RelativeLayout>
+    </com.andexert.library.RippleView>
+
+    <View
+        android:id="@+id/relieve_devide_view1"
+        android:layout_width="wrap_content"
+        android:layout_height="1dip"
+        android:layout_below="@id/relieveDeviceLinearLayout_ripple"
+        android:layout_toRightOf="@+id/textViewBiaoding"
+        android:background="@color/grayDevideLine" />
+
+    <TextView
+        android:id="@+id/textViewBiaoding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="40dp" />
+
+    <com.andexert.library.RippleView
+        android:id="@+id/helpCenterLinearLayout_ripple"
+        rv_centered="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relieve_devide_view1">
+
+        <RelativeLayout
+            android:id="@+id/helpCenterLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/help_center_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/help_phone" />
+
+            <TextView
+                android:id="@+id/help_center_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/help_center_imageView"
+                android:gravity="center_horizontal"
+                android:text="@string/helpCenter"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/right_arrow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/right_arrow"
+                android:textSize="20sp" />
+        </RelativeLayout>
+    </com.andexert.library.RippleView>
+
+    <View
+        android:id="@+id/relieve_devide_view2"
+        android:layout_width="wrap_content"
+        android:layout_height="1dip"
+        android:layout_below="@id/helpCenterLinearLayout_ripple"
+        android:layout_marginTop="0dp"
+        android:layout_toRightOf="@+id/textViewBiaoding"
+        android:background="@color/grayDevideLine" />
+
+    <com.andexert.library.RippleView
+        android:id="@+id/systemVersionLinearLayout_ripple"
+        rv_centered="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relieve_devide_view2">
+
+        <RelativeLayout
+            android:id="@+id/systemVersionLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp">
+
+            <ImageView
+                android:id="@+id/system_version_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/system_version" />
+
+            <TextView
+                android:id="@+id/system_version_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/system_version_imageView"
+                android:gravity="center_horizontal"
+                android:text="@string/systemVersion"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/right_arrow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/right_arrow"
+                android:textSize="20sp" />
+        </RelativeLayout>
+    </com.andexert.library.RippleView>
+
+    <View
+        android:id="@+id/relieve_devide_view3"
+        android:layout_width="wrap_content"
+        android:layout_height="1dip"
+        android:layout_below="@id/systemVersionLinearLayout_ripple"
+        android:layout_marginTop="0dp"
+        android:layout_toRightOf="@+id/textViewBiaoding"
+        android:background="@color/grayDevideLine" />
+
+    <com.andexert.library.RippleView
+        android:id="@+id/self_ripple"
+        rv_centered="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relieve_devide_view3"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/user_exit"
+            style="@style/Ripple_Button_BG"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/exit" />
+    </com.andexert.library.RippleView>
+</RelativeLayout>

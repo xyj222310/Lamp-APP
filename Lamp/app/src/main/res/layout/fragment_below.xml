@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearLayoutBelow" />
+    <LinearLayout
+        android:id="@+id/linearLayoutBelow"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:background="#123344"
+        >
+        <Button
+            android:id="@+id/fm_below_mydevice"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="0dp"
+            android:padding="0dp"
+            android:onClick="onTabClicked"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_height="match_parent"
+            android:background="@drawable/belowbtn1_selector"
+            />
+        <Button
+            android:id="@+id/fm_below_setting"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="0dp"
+            style="?android:attr/buttonBarButtonStyle"
+            android:padding="0dp"
+            android:onClick="onTabClicked"
+            android:layout_height="match_parent"
+            android:background="@drawable/belowbtn2_selector"
+            />
+        <Button
+            android:id="@+id/fm_below_self_center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="0dp"
+            android:padding="0dp"
+            android:onClick="onTabClicked"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_height="match_parent"
+            android:background="@drawable/belowbtn3_selector"
+            />
+    </LinearLayout>
+ <!--
+    <Button
+        android:id="@+id/fm_below_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="3dip"
+        android:onClick="onTabClicked"
+        android:background="@mipmap/setting" />
+
+    <Button
+        android:id="@+id/fm_below_mydevice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:onClick="onTabClicked"
+        android:layout_marginBottom="3dip"
+        android:background="@mipmap/mydevice" />
+
+    <Button
+        android:id="@+id/fm_below_self_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="3dip"
+        android:layout_marginRight="20dp"
+        android:onClick="onTabClicked"
+        android:background="@mipmap/selfcenter" />
+     -->
+    <RelativeLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearLayoutBelow" />
+
+</RelativeLayout>

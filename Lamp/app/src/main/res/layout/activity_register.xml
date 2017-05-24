@@ -13,7 +13,7 @@
         android:textColor="#ff0000"
         android:textSize="14sp" />
 
-    <com.aircontrol.demo.widgets.ClearEditText
+    <com.yjtse.lamp.widgets.ClearEditText
         android:id="@+id/et_regist_input_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
         android:singleLine="true"
         android:textColorHint="#bfc0c1" />
     
-    <com.aircontrol.demo.widgets.ClearEditText
+    <com.yjtse.lamp.widgets.ClearEditText
         android:id="@+id/et_regist_input_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
         android:singleLine="true"
         android:textColorHint="#bfc0c1" />
     
-    <com.aircontrol.demo.widgets.ClearEditText
+    <com.yjtse.lamp.widgets.ClearEditText
         android:id="@+id/et_regist_input_identifying_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

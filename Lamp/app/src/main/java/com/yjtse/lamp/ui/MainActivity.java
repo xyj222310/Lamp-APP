@@ -1,5 +1,6 @@
 package com.yjtse.lamp.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +10,7 @@ import android.util.Log;
 import com.google.zxing.client.android.CaptureActivity;
 import com.yjtse.lamp.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

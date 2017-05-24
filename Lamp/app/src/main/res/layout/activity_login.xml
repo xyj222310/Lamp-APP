@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <com.aircontrol.demo.widgets.ClearEditText
+    <com.yjtse.lamp.widgets.ClearEditText
         android:id="@+id/et_login_input_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,12 +24,12 @@
         android:drawableRight="@drawable/et_delete_right"
         android:hint="@string/inputUsernameStr"
         android:inputType="number"
-        android:maxLength="11"
+        android:maxLength="20"
         android:paddingLeft="15dp"
         android:singleLine="true"
         android:textColorHint="#bfc0c1" />
 
-    <com.aircontrol.demo.widgets.ClearEditText
+    <com.yjtse.lamp.widgets.ClearEditText
         android:id="@+id/et_login_input_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

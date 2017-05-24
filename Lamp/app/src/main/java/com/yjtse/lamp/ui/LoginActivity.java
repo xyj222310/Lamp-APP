@@ -14,23 +14,22 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.loopj.android.http.RequestParams;
 import com.yjtse.lamp.Config;
 import com.yjtse.lamp.R;
+import com.yjtse.lamp.asynchttp.TextNetWorkCallBack;
 import com.yjtse.lamp.base.BaseActivity;
 import com.yjtse.lamp.contentview.ContentWidget;
 import com.yjtse.lamp.domain.Result;
+import com.yjtse.lamp.requests.AsyncRequest;
 import com.yjtse.lamp.utils.InjectUtils;
 import com.yjtse.lamp.utils.NetAvailable;
 import com.yjtse.lamp.utils.PackageUtils;
 import com.yjtse.lamp.utils.SharedPreferencesUtil;
-import com.yjtse.lamp.utils.StreamTool;
 import com.yjtse.lamp.widgets.ClearEditText;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import org.apache.http.Header;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -168,15 +167,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 final String userId = et_login_input_number.getText().toString().trim();
                 final String userPass = et_login_input_password.getText().toString().trim();
                 if (TextUtils.isEmpty(userId)) {
-                    hint_string.setText("手机号码不能为空");
+                    hint_string.setText("id不能为空");
                     return;
                 }
-                if (!userId.substring(0, 1).equals("1")) {
-                    hint_string.setText("手机号码不符合大陆规范");
-                    return;
-                }
-                if (userId.length() != 11) {
-                    hint_string.setText("手机号码长度不符合大陆规范");
+                if (userId.length() >= 20) {
+                    hint_string.setText("长度别超过20位");
                     return;
                 }
                 if (TextUtils.isEmpty(userPass)) {
@@ -215,96 +210,62 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    private void sendLoginPostRequest(final String path, final Map<String, String> params, final long startTime, final String userId, final String userPass) {
-        new Thread(new Runnable() {
+    private void sendLoginPostRequest(final String url, final Map<String, String> params, final long startTime, final String userId, final String userPass) {
+
+        RequestParams params1 = new RequestParams();
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            params1.add(entry.getKey(), entry.getValue());
+        }
+        AsyncRequest.ClientPost(url, params1, new TextNetWorkCallBack() {
             @Override
-            public void run() {
-                try {
-                    StringBuilder data = new StringBuilder();
-                    if (params != null && !params.isEmpty()) {
-                        for (Map.Entry<String, String> entry : params.entrySet()) {
-                            data.append(entry.getKey()).append("=");
-                            data.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
-                            data.append("&");
-                        }
-                        data.deleteCharAt(data.length() - 1);
-                    }
-                    byte[] entity = data.toString().getBytes();
-                    HttpURLConnection conn = (HttpURLConnection) new URL(path).openConnection();
-
-                    conn.setConnectTimeout(5000);
-                    conn.setRequestMethod("POST");
-                    conn.setDoOutput(true);
-                    conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                    conn.setRequestProperty("Content-Length", String.valueOf(entity.length));
-                    OutputStream outputStream = conn.getOutputStream();
-                    outputStream.write(entity);
-
-                    if (conn.getResponseCode() == 200) { //请求成功
-                        InputStream is = conn.getInputStream();
-                        String result = new String(StreamTool.read(is));
-                        Gson gson = new Gson();
-
-                        final Result token = gson.fromJson(result, Result.class);
+            public void onMySuccess(int statusCode, Header[] header, String result) {
+                Gson gson = new Gson();
+                final Result token = gson.fromJson(result, Result.class);
 //                                JsonParser.parseLogin(fr);
-                        Config.writeToDebug(result);
+                Config.writeToDebug(result);
 //                        Message msg = Message.obtain();
-                        long endTime = System.currentTimeMillis();
-                        if (token != null) {
+                long endTime = System.currentTimeMillis();
+                if (token != null) {
 //                            msg.what = Config.MESSAGE_WHAT_HTTP_LOGIN_SUCCESS;
 //                            msg.obj = token;
-                            if (token.isSuccess()) {
-                                SharedPreferencesUtil.save(LoginActivity.this, Config.KEY_REMEMBER_PWD, isRememberPassword);
-                                SharedPreferencesUtil.save(LoginActivity.this, Config.KEY_USERNAME, userId);
-                                SharedPreferencesUtil.save(LoginActivity.this, Config.KEY_PASSWORD, userPass);
-                            } else {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        hint_string.setText("服务器返回异常，请稍后再试");
-                                    }
-                                });
-                            }
-
-                        } else {
-//                            msg.what = Config.MESSAGE_WHAT_HTTP_LOGIN_FAIL;
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    hint_string.setText("服务器返回异常，请稍后再试");
-                                }
-                            });
-                        }
-                        if (endTime - startTime <= 2000) { //小于两秒
-                            try {
-                                Thread.sleep(2000 - (endTime - startTime));
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-//                        handler.sendMessage(msg);
-                    } else { //请求失败
-//                        handler.sendEmptyMessage(Config.MESSAGE_WHAT_HTTP_LOGIN_FAIL);
+                    if (token.isSuccess()) {
+                        SharedPreferencesUtil.save(LoginActivity.this, Config.KEY_REMEMBER_PWD, isRememberPassword);
+                        SharedPreferencesUtil.save(LoginActivity.this, Config.KEY_USERNAME, userId);
+                        SharedPreferencesUtil.save(LoginActivity.this, Config.KEY_PASSWORD, userPass);
+                        launchActivity(LoginActivity.this, TabFragmentActivity.class);
+                        LoginActivity.this.finish();
+                    } else {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                hint_string.setText("网络连接失败，请检查网络");
+                                hint_string.setText("服务器返回异常，请稍后再试");
                             }
                         });
-                        Config.writeToDebug("远程登陆异常" + "statusCode = " + conn.getResponseCode());
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+
+                } else {
+//                            msg.what = Config.MESSAGE_WHAT_HTTP_LOGIN_FAIL;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            hint_string.setText("网络连接失败，请检查网络");
+                            hint_string.setText("服务器返回异常，请稍后再试");
                         }
                     });
-                    endDialog();
+                }
+                if (endTime - startTime <= 2000) { //小于两秒
+                    try {
+                        Thread.sleep(2000 - (endTime - startTime));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-        }).start();
+
+            @Override
+            public void onMyFailure(int statusCode, Header[] header, String result, Throwable th) {
+
+            }
+        });
 
     }
 
