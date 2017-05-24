@@ -97,7 +97,6 @@ public class ReplacePasswordActivity extends BaseActivity {
                                             ToastUtils.showToast(ReplacePasswordActivity.this, "修改成功", Toast.LENGTH_SHORT);
                                         }
                                     });
-                                    SharedPreferencesUtil.save(ReplacePasswordActivity.this, Config.KEY_TOKEN, null);
                                     SharedPreferencesUtil.save(ReplacePasswordActivity.this, Config.KEY_USERNAME, phoneNum);
                                     SharedPreferencesUtil.save(ReplacePasswordActivity.this, Config.KEY_PASSWORD, newPassword);
                                     Bundle bundle1 = new Bundle();

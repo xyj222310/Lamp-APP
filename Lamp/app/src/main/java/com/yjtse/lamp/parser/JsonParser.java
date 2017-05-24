@@ -20,10 +20,10 @@ public class JsonParser {
 
         try {
             JSONObject obj = new JSONObject(jsonResult);
-            String token = obj.getString(Config.KEY_TOKEN);
-            if (!TextUtils.isEmpty(token)) {
-                return token;
-            }
+//            String token = obj.getString(Config.KEY_TOKEN);
+//            if (!TextUtils.isEmpty(token)) {
+//                return token;
+//            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

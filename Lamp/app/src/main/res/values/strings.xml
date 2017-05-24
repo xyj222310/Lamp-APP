@@ -22,10 +22,10 @@
     <string name="addDevice">设备添加</string>
     <string name="selfCenterUserLogin">登录</string>
     <string name="selfCenterUserNotLogin">未登录</string>
-    <string name="suggestFeedback">意见反馈</string>
-    <string name="helpCenter">帮助中心</string>
+    <string name="suggestFeedback">联系我们</string>
+    <string name="helpCenter">关于</string>
     <string name="exit">退出</string>
-    <string name="systemVersion">系统版本</string>
+    <string name="systemVersion">系统设置</string>
     <string name="passwordCanNotNone">密码不能为空</string>
     <string name="passwordMustBeSame">密码不相同</string>
     <string name="networkFail">网络请求失败，请稍后再试</string>

@@ -33,11 +33,6 @@ public class SettingFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_device, container, false);
-//        isPrepared = true;
-//        if (isFirstLoading) {
-//            isFirstLoading = false;
-//            startDialog("正在加载网关数据");
-//        }
         return view;
     }
 
@@ -54,7 +49,6 @@ public class SettingFragment extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         tabActivity = (TabFragmentActivity) getActivity();
-        gateway_list_information = (TextView) getActivity().findViewById(R.id.gateway_list_information);
         instance = this;
 
 

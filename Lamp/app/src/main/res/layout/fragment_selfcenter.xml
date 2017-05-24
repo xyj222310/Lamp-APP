@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -49,9 +50,9 @@
                 android:id="@+id/relieve_device_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
                 android:layout_toRightOf="@id/relieve_device_imageView"
                 android:gravity="center_horizontal"
                 android:text="@string/suggestFeedback"
@@ -65,7 +66,8 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/right_arrow"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="RtlHardcoded" />
         </RelativeLayout>
     </com.andexert.library.RippleView>
 
@@ -83,7 +85,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="40dp" />
+        android:layout_marginLeft="40dp"
+        tools:ignore="RtlHardcoded" />
 
     <com.andexert.library.RippleView
         android:id="@+id/helpCenterLinearLayout_ripple"
@@ -110,9 +113,9 @@
                 android:id="@+id/help_center_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="20dp"
                 android:layout_toRightOf="@id/help_center_imageView"
                 android:gravity="center_horizontal"
                 android:text="@string/helpCenter"
@@ -126,7 +129,8 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/right_arrow"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="RtlHardcoded" />
         </RelativeLayout>
     </com.andexert.library.RippleView>
 
@@ -165,9 +169,9 @@
                 android:id="@+id/system_version_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
                 android:layout_toRightOf="@id/system_version_imageView"
                 android:gravity="center_horizontal"
                 android:text="@string/systemVersion"
@@ -181,7 +185,8 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/right_arrow"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="RtlHardcoded" />
         </RelativeLayout>
     </com.andexert.library.RippleView>
 

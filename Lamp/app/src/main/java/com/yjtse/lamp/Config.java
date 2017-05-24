@@ -1,10 +1,6 @@
 package com.yjtse.lamp;
 
-import android.content.Context;
 import android.os.Environment;
-
-import com.yjtse.lamp.domain.Login;
-import com.yjtse.lamp.utils.SharedPreferencesUtil;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,21 +10,10 @@ import java.text.SimpleDateFormat;
 public class Config {
 
     /**
-     * 登录状态
-     */
-    public static Login.State loginState;
-
-    /**
-     * 登录方式
-     */
-    public static Login.Style loginStyle;
-    //上面两个静态变量不科学，但是暂时没有更好的解决方式
-
-    /**
      * 是否开启debug模式
      */
     public static final boolean DEBUG = false;
-    public static final String DEBUG_FILE_NAME = "/TICA_DEBUG.txt";
+    public static final String DEBUG_FILE_NAME = "/LAMP_DEBUG.txt";
     public static File DEBUG_FILE = null;
 
     public static void writeToDebug(String msg) {
@@ -61,21 +46,11 @@ public class Config {
     /**
      * 服务器的路径
      */
-//    public static final String SERVER_URL = "http://60.205.219.43";//服务器路径http://icloud.ticachina.com
-    public static final String SERVER_URL = "http://192.168.191.1";//服务器路径http://icloud.ticachina.com
+    public static final String SERVER_URL = "http://60.205.219.43/lamp";//服务器路径http://icloud.ticachina.com
+//    public static final String SERVER_URL = "http://192.168.191.1";//服务器路径http://icloud.ticachina.com
 
-
-    /**
-     * TCP通信端口
-     */
-    public static final int TCP_PORT = 9999;
-    /**
-     * UDP通信端口
-     */
-    public static final int UDP_PORT = 6500;
 
     //请求参数键
-    public static final String KEY_TOKEN = "sessionId";
     public static final String KEY_USERNAME = "userId";
     public static final String KEY_PASSWORD = "userPass";
     public static final String KEY_REMEMBER_PWD = "remember_password";
@@ -224,12 +199,6 @@ public class Config {
      */
     public static String getRequestURL(String action) {
         return SERVER_URL + "/" + action;//得到服务器路径加上请求的动作
-    }
-
-    public static String getAfterLoginRequestURL(Context context, String action) {
-        String token = (String) SharedPreferencesUtil.query(context, KEY_TOKEN, "String");
-        String url = SERVER_URL + "/" + action + ";" + "JSESSIONID=" + token + "?__ajax=true";
-        return url;
     }
 
 }

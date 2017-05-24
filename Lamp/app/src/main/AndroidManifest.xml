@@ -61,11 +61,26 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.MainActivity" />
+        <activity
+            android:name=".ui.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.RegistActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ForgetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.TabFragmentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.SuggestionBackActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ReplacePasswordActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.LoginActivity" />
-
-        <activity android:name=".ui.TabFragmentActivity" />
 
         <!-- 二维码相关activity注册 -->
         <activity

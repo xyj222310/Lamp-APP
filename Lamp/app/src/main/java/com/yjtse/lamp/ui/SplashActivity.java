@@ -7,7 +7,6 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 
 import com.yjtse.lamp.Config;
-import com.yjtse.lamp.domain.Login;
 import com.yjtse.lamp.utils.SharedPreferencesUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -20,15 +19,15 @@ public class SplashActivity extends Activity {
 
         Config.writeToDebug("app Splash...");
 
-        SystemClock.sleep(TimeUnit.SECONDS.toMillis(1));
-        String token = (String) SharedPreferencesUtil.query(this, Config.KEY_TOKEN, "String");
+        SystemClock.sleep(TimeUnit.SECONDS.toSeconds(10));
+        String userId = (String) SharedPreferencesUtil.query(this, Config.KEY_USERNAME, "String");
+        String userPass = (String) SharedPreferencesUtil.query(this, Config.KEY_PASSWORD, "String");
         boolean isRemember = (boolean) SharedPreferencesUtil.query(this, Config.KEY_REMEMBER_PWD, "boolean");
-        if (token != null && !TextUtils.isEmpty(token) && isRemember) {//判断token是否为空或者没有意义,并且记住了密码
-            Config.loginState = Login.State.LOGIN;
-            Config.loginStyle = Login.Style.LOGIN_REMOTE;
+        if (userId != null && !TextUtils.isEmpty(userId) && isRemember && userPass != null && !TextUtils.isEmpty(userPass)) {//判断token是否为空或者没有意义,并且记住了密码
             Intent intent = new Intent(this, TabFragmentActivity.class);
             startActivity(intent);//跳转页面
-        } else {//如果token值过期就直接重新登录
+
+        } else {
             startActivity(new Intent(SplashActivity.this, LoginActivity.class));
         }
         finish();//结束此activity

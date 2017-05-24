@@ -18,10 +18,9 @@ import com.yjtse.lamp.Config;
 import com.yjtse.lamp.R;
 import com.yjtse.lamp.ui.LoginActivity;
 import com.yjtse.lamp.ui.SuggestionBackActivity;
-import com.yjtse.lamp.utils.PackageUtils;
 import com.yjtse.lamp.utils.SharedPreferencesUtil;
 
-public class SelfCenterFragment extends Fragment implements OnClickListener {
+public class SelfCenterFragment extends BaseFragment implements OnClickListener {
 
     /**
      * 退出或者登陆按钮
@@ -40,7 +39,7 @@ public class SelfCenterFragment extends Fragment implements OnClickListener {
     /**
      * token值
      */
-    private String token = "";
+    private String userPass = "";
     private String phoneNum = "";
 
     @Override
@@ -59,14 +58,14 @@ public class SelfCenterFragment extends Fragment implements OnClickListener {
         helpCenterLinearLayout = (RelativeLayout) getActivity().findViewById(R.id.helpCenterLinearLayout);
         systemVersionLinearLayout = (RelativeLayout) getActivity().findViewById(R.id.systemVersionLinearLayout);
 
-        token = (String) SharedPreferencesUtil.query(getActivity(), Config.KEY_TOKEN, "String");
+        userPass = (String) SharedPreferencesUtil.query(getActivity(), Config.KEY_PASSWORD, "String");
         phoneNum = (String) SharedPreferencesUtil.query(getActivity(), Config.KEY_USERNAME, "String");
         if (TextUtils.isEmpty(phoneNum) || phoneNum == null) {
             self_center_user_login.setText(R.string.selfCenterUserNotLogin);
         } else {
-            self_center_user_login.setText(phoneNum.substring(0, 3) + "-" + phoneNum.substring(3, 7) + "-" + phoneNum.substring(7));
+            self_center_user_login.setText(phoneNum);
         }
-        if (token != null && !TextUtils.isEmpty(token)) //不为空，说明已经登陆，显示退出
+        if (userPass != null && !TextUtils.isEmpty(userPass)) //不为空，说明已经登陆，显示退出
         {
             user_exit.setText(R.string.exit);
             loginOrExits = true;
@@ -87,14 +86,18 @@ public class SelfCenterFragment extends Fragment implements OnClickListener {
 
     @Override
     public void onClick(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         switch (v.getId()) {
             case R.id.user_exit:
                 if (loginOrExits) //显示退出,未退出
                 {
-                    SharedPreferencesUtil.save(getActivity(), Config.KEY_TOKEN, null);
                     loginOrExits = false;
                     self_center_user_login.setText(R.string.selfCenterUserNotLogin);
                     user_exit.setText(R.string.selfCenterUserLogin);
+//                    SharedPreferencesUtil.save(getActivity(), Config.KEY_USERNAME, "");
+//                    SharedPreferencesUtil.save(getActivity(), Config.KEY_PASSWORD, "");
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                    getActivity().finish();
                 } else {          //显示登陆，已退出
                     startActivity(new Intent(getActivity(), LoginActivity.class));
                     getActivity().finish();
@@ -102,15 +105,20 @@ public class SelfCenterFragment extends Fragment implements OnClickListener {
                 break;
             case R.id.self_center_user_logo:
                 break;
+            case R.id.helpCenterLinearLayout:
+
+                builder.setTitle("联系我");
+                builder.setMessage("xyj222310@163.com\n1568321****\n1021238535@qq.com");
+                builder.setPositiveButton("确定", null);
+                builder.create().show();
+                break;
             case R.id.relieveDeviceLinearLayout:
                 Intent intent1 = new Intent(getActivity(), SuggestionBackActivity.class);
                 startActivity(intent1);
                 break;
             case R.id.systemVersionLinearLayout:
-                String version = PackageUtils.getVersion(getActivity().getApplicationContext());
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("版本提示");
-                builder.setMessage("当前版本： v" + version + "\n当前无更新版本");
+                builder.setTitle("联系我");
+                builder.setMessage("xyj222310@163.com\n1568321****\n1021238535@qq.com");
                 builder.setPositiveButton("确定", null);
                 builder.create().show();
                 break;
