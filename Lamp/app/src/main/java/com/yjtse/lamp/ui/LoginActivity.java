@@ -78,7 +78,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
      * 是否记住密码
      * 默认为记住密码
      */
-    private boolean isRememberPassword = true;
+    private boolean isRememberPassword = false;
 
     private ProgressDialog pd = null;
 
@@ -115,14 +115,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 et_login_input_password.setText(password);
             }
             remenber_password.setChecked(true);
+            isRememberPassword = true;
         } else if ((boolean) SharedPreferencesUtil.query(LoginActivity.this, Config.KEY_REMEMBER_PWD, "boolean")) {
             et_login_input_number.setText((String) SharedPreferencesUtil.query(LoginActivity.this, Config.KEY_USERNAME, "String"));
             et_login_input_password.setText((String) SharedPreferencesUtil.query(LoginActivity.this, Config.KEY_PASSWORD, "String"));
             remenber_password.setChecked(true);
+            isRememberPassword = true;
         } else {
-            et_login_input_number.setText("");
+            et_login_input_number.setText((String) SharedPreferencesUtil.query(LoginActivity.this, Config.KEY_USERNAME, "String"));
             et_login_input_password.setText("");
             remenber_password.setChecked(false);
+            isRememberPassword = false;
         }
 
         tv_version.setText(PackageUtils.getVersion(getApplicationContext()));
@@ -140,24 +143,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 }
             }
         });
-    }
-
-
-    private void startDialog(String msg) {
-        dialog = new Dialog(LoginActivity.this, R.style.MyDialogStyle);
-        dialog.setContentView(R.layout.loading);
-        dialog.setCanceledOnTouchOutside(false);
-        TextView message = (TextView) dialog.getWindow().findViewById(R.id.load_msg);
-        if (dialog != null && !dialog.isShowing()) {
-            message.setText(msg);
-            dialog.show();
-        }
-    }
-
-    private void endDialog() {
-        if (dialog != null && dialog.isShowing()) {
-            dialog.dismiss();
-        }
     }
 
     @Override
@@ -221,17 +206,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             public void onMySuccess(int statusCode, Header[] header, String result) {
                 Gson gson = new Gson();
                 final Result token = gson.fromJson(result, Result.class);
-//                                JsonParser.parseLogin(fr);
                 Config.writeToDebug(result);
-//                        Message msg = Message.obtain();
-                long endTime = System.currentTimeMillis();
+                final long endTime = System.currentTimeMillis();
                 if (token != null) {
-//                            msg.what = Config.MESSAGE_WHAT_HTTP_LOGIN_SUCCESS;
-//                            msg.obj = token;
                     if (token.isSuccess()) {
-                        if(isRememberPassword){
-                            SharedPreferencesUtil.save(LoginActivity.this, Config.KEY_PASSWORD, userPass);
-                        }
+                        SharedPreferencesUtil.save(LoginActivity.this, Config.KEY_PASSWORD, userPass);
                         SharedPreferencesUtil.save(LoginActivity.this, Config.KEY_REMEMBER_PWD, isRememberPassword);
                         SharedPreferencesUtil.save(LoginActivity.this, Config.KEY_USERNAME, userId);
 
@@ -242,6 +221,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             @Override
                             public void run() {
                                 hint_string.setText(token.getError());
+                                endDialog();
                             }
                         });
                     }
@@ -252,6 +232,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         @Override
                         public void run() {
                             hint_string.setText("服务器返回异常，请稍后再试");
+                            endDialog();
                         }
                     });
                 }
@@ -266,10 +247,28 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
             @Override
             public void onMyFailure(int statusCode, Header[] header, String result, Throwable th) {
-
+                endDialog();
             }
         });
 
+    }
+
+
+    private void startDialog(String msg) {
+        dialog = new Dialog(LoginActivity.this, R.style.MyDialogStyle);
+        dialog.setContentView(R.layout.loading);
+        dialog.setCanceledOnTouchOutside(false);
+        TextView message = (TextView) dialog.getWindow().findViewById(R.id.load_msg);
+        if (dialog != null && !dialog.isShowing()) {
+            message.setText(msg);
+            dialog.show();
+        }
+    }
+
+    private void endDialog() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
     }
 
     private class EditTextTextWatcher implements TextWatcher {

@@ -70,9 +70,11 @@ public class DeviceAdapter extends BaseAdapter {
             case "-1":
                 socket_status_text.setText("Offline");
                 socket_status_text.setTextColor(Color.GRAY);  //灰色
+                socket_id_text.setTextColor(Color.GRAY);  //灰色
                 break;
             default:
                 socket_status_text.setText("Online");
+                socket_id_text.setTextColor(context.getResources().getColor(R.color.theme_color));  //灰色
                 socket_status_text.setTextColor(context.getResources().getColor(R.color.theme_color));
                 break;
         }

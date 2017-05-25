@@ -3,7 +3,6 @@ package com.yjtse.lamp.fragment;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,7 +62,7 @@ public class SelfCenterFragment extends BaseFragment implements OnClickListener 
         if (TextUtils.isEmpty(phoneNum) || phoneNum == null) {
             self_center_user_login.setText(R.string.selfCenterUserNotLogin);
         } else {
-            self_center_user_login.setText(phoneNum+"-欢迎您");
+            self_center_user_login.setText(phoneNum + "-欢迎您");
         }
         if (userPass != null && !TextUtils.isEmpty(userPass)) //不为空，说明已经登陆，显示退出
         {
@@ -94,8 +93,8 @@ public class SelfCenterFragment extends BaseFragment implements OnClickListener 
                     loginOrExits = false;
                     self_center_user_login.setText(R.string.selfCenterUserNotLogin);
                     user_exit.setText(R.string.selfCenterUserLogin);
-//                    SharedPreferencesUtil.save(getActivity(), Config.KEY_USERNAME, "");
-//                    SharedPreferencesUtil.save(getActivity(), Config.KEY_PASSWORD, "");
+                    SharedPreferencesUtil.save(getActivity(), Config.KEY_USERNAME, "");
+                    SharedPreferencesUtil.save(getActivity(), Config.KEY_PASSWORD, "");
                     startActivity(new Intent(getActivity(), LoginActivity.class));
                     getActivity().finish();
                 } else {          //显示登陆，已退出

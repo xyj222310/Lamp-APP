@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">Lamp</string>
-    
+
     <string name="action_settings">Settings</string>
     <string name="inputUsernameStr">输入用户id</string>
     <string name="inputPasswordStr">请输入密码</string>
     <string name="modemPasswordBtnStr">配置</string>
-    <string name="rememberPasswordStr">记住密码？</string>
+    <string name="rememberPasswordStr">下回自动登录</string>
     <string name="remoteLoginBtnStr">登录</string>
     <string name="forgetPasswordStr">忘记密码</string>
     <string name="registAccount">用户注册</string>
