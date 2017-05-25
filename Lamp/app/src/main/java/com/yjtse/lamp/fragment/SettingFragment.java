@@ -50,15 +50,6 @@ public class SettingFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         tabActivity = (TabFragmentActivity) getActivity();
         instance = this;
-
-
-        tabActivity.setActionBarSettingOnClickListener(new TabFragmentActivity.ActionBarSettingOnClickListener() {
-            @Override
-            public void onMySettingFirstBtnClick() {
-                Intent openCameraIntent = new Intent(getActivity(), CaptureActivity.class);
-                startActivityForResult(openCameraIntent, 0);
-            }
-        });
     }
 
     @Override

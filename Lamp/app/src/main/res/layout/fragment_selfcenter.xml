@@ -30,19 +30,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/self_center_user_login"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="50dp">
 
         <RelativeLayout
             android:id="@+id/relieveDeviceLinearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
 
             <ImageView
                 android:id="@+id/relieve_device_imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="50dp"
-                android:layout_marginTop="15dp"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/suggestfeedback" />
 
@@ -50,13 +52,12 @@
                 android:id="@+id/relieve_device_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="25dp"
                 android:layout_toRightOf="@id/relieve_device_imageView"
                 android:gravity="center_horizontal"
                 android:text="@string/suggestFeedback"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/right_arrow1"
@@ -64,9 +65,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="40dp"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/right_arrow"
-                android:textSize="20sp"
+                android:gravity="center_horizontal"
+                android:textSize="18sp"
                 tools:ignore="RtlHardcoded" />
         </RelativeLayout>
     </com.andexert.library.RippleView>
@@ -98,14 +99,17 @@
         <RelativeLayout
             android:id="@+id/helpCenterLinearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
 
             <ImageView
                 android:id="@+id/help_center_imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/right_arrow2"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="50dp"
-                android:layout_marginTop="10dp"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/help_phone" />
 
@@ -113,13 +117,12 @@
                 android:id="@+id/help_center_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="25dp"
-                android:layout_marginTop="20dp"
                 android:layout_toRightOf="@id/help_center_imageView"
                 android:gravity="center_horizontal"
                 android:text="@string/helpCenter"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/right_arrow2"
@@ -127,9 +130,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="40dp"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/right_arrow"
-                android:textSize="20sp"
+                android:gravity="center_horizontal"
+                android:textSize="18sp"
                 tools:ignore="RtlHardcoded" />
         </RelativeLayout>
     </com.andexert.library.RippleView>
@@ -148,20 +151,22 @@
         rv_centered="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/relieve_devide_view2">
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/relieve_devide_view2">
 
         <RelativeLayout
             android:id="@+id/systemVersionLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp">
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
 
             <ImageView
                 android:id="@+id/system_version_imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="50dp"
-                android:layout_marginTop="10dp"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/system_version" />
 
@@ -169,13 +174,12 @@
                 android:id="@+id/system_version_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="25dp"
                 android:layout_toRightOf="@id/system_version_imageView"
                 android:gravity="center_horizontal"
                 android:text="@string/systemVersion"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/right_arrow3"
@@ -183,9 +187,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="40dp"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/right_arrow"
-                android:textSize="20sp"
+                android:gravity="center_horizontal"
+                android:textSize="18sp"
                 tools:ignore="RtlHardcoded" />
         </RelativeLayout>
     </com.andexert.library.RippleView>

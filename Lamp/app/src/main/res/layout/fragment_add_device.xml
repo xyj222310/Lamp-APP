@@ -7,17 +7,30 @@
         android:id="@+id/gateway_list_information"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="请点击⊕添加设备"
-        android:layout_marginTop="30dp"
+        android:text="welcome，enjoy the Lamp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
         />
-    
+
     <com.yjtse.lamp.widgets.MyListView
-        android:id="@+id/gateway_listview"
+        android:id="@+id/fm_device_message_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent" />
+
+    <!--<Button-->
+        <!--android:id="@+id/fm_device_message_multiply_setting"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginLeft="80dp"-->
+        <!--android:layout_marginRight="80dp"-->
+        <!--android:background="@drawable/login_bg"-->
+        <!--android:text="统一设置"-->
+        <!--android:visibility="gone"-->
+        <!--android:textColor="#ffffff"-->
+        <!--android:layout_marginBottom="30dp"-->
+        <!--android:textSize="20sp" />-->
 
 </LinearLayout>

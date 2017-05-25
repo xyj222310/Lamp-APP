@@ -229,16 +229,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //                            msg.what = Config.MESSAGE_WHAT_HTTP_LOGIN_SUCCESS;
 //                            msg.obj = token;
                     if (token.isSuccess()) {
+                        if(isRememberPassword){
+                            SharedPreferencesUtil.save(LoginActivity.this, Config.KEY_PASSWORD, userPass);
+                        }
                         SharedPreferencesUtil.save(LoginActivity.this, Config.KEY_REMEMBER_PWD, isRememberPassword);
                         SharedPreferencesUtil.save(LoginActivity.this, Config.KEY_USERNAME, userId);
-                        SharedPreferencesUtil.save(LoginActivity.this, Config.KEY_PASSWORD, userPass);
+
                         launchActivity(LoginActivity.this, TabFragmentActivity.class);
                         LoginActivity.this.finish();
                     } else {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                hint_string.setText("服务器返回异常，请稍后再试");
+                                hint_string.setText(token.getError());
                             }
                         });
                     }

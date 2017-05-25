@@ -53,7 +53,8 @@ public class TabFragmentActivity extends FragmentActivity implements ViewPager.O
 
         myViewPager.setOnPageChangeListener(this);
         actionBar = new CenterTitleActionBar(this, getActionBar());
-        actionBar.setTitle("动态");//标题
+        actionBar.setTitle("设备列表");//标题
+        actionBar.setFirstBtnID(R.drawable.add);
         actionBar.setBackImageID(R.drawable.transparent);
         actionBar.setCustomActionBar();
 
@@ -70,12 +71,12 @@ public class TabFragmentActivity extends FragmentActivity implements ViewPager.O
             @Override
             public void onFirstBtnClick() {
                 if (actionBarMyDeviceOnClickListener != null) {
-                    if (actionBar.getFirstBtnID() == R.drawable.multiply_choice) {
+                    if (actionBar.getFirstBtnID() == R.drawable.add) {
                         actionBarMyDeviceOnClickListener.onMyDeviceFirstBtnClick();
                     }
                 }
                 if (actionBarSettingOnClickListener != null) {
-                    if (actionBar.getFirstBtnID() == R.drawable.add) {
+                    if (actionBar.getFirstBtnID() == R.drawable.multiply_choice) {
                         actionBarSettingOnClickListener.onMySettingFirstBtnClick();
                     }
                 }
@@ -102,17 +103,16 @@ public class TabFragmentActivity extends FragmentActivity implements ViewPager.O
                 fm_below_mydevice.setSelected(true);
                 fm_below_setting.setSelected(false);
                 fm_below_self_center.setSelected(false);
-                actionBar.setTitle("动态");
-                actionBar.setFirstBtnID(R.drawable.multiply_choice);//默认无显示
+                actionBar.setTitle("设备列表");
+                actionBar.setFirstBtnID(R.drawable.add);
                 actionBar.setCustomActionBar();//显示视图以及actionbar的属性
                 break;
             case 1:
                 fm_below_mydevice.setSelected(false);
                 fm_below_setting.setSelected(true);
                 fm_below_self_center.setSelected(false);
-
-                actionBar.setTitle("设备列表");
-                actionBar.setFirstBtnID(R.drawable.add);
+                actionBar.setTitle("动态");
+                actionBar.setFirstBtnID(R.drawable.multiply_choice);//默认无显示
                 actionBar.setCustomActionBar();//显示视图以及actionbar的属性
                 break;
             case 2:

@@ -46,8 +46,8 @@ public class Config {
     /**
      * 服务器的路径
      */
-    public static final String SERVER_URL = "http://60.205.219.43/lamp";//服务器路径http://icloud.ticachina.com
-//    public static final String SERVER_URL = "http://192.168.191.1";//服务器路径http://icloud.ticachina.com
+//    public static final String SERVER_URL = "http://60.205.219.43/lamp";//服务器路径http://icloud.ticachina.com
+    public static final String SERVER_URL = "http://192.168.191.1";//服务器路径http://icloud.ticachina.com
 
 
     //请求参数键
@@ -99,6 +99,18 @@ public class Config {
      * 添加设备消息
      */
     public static final int MESSAGE_WHAT_ADD_DEVICE = 102;
+
+    /**
+     * 更新设备状态信息
+     */
+    public static final int MESSAGE_WHAT_UPDATE_DEVICE_STATUS = 109;
+
+
+    /**
+     * 定时设备状态信息
+     */
+    public static final int MESSAGE_WHAT_UPDATE_DEVICE_TIMING = 110;
+
     /**
      * 查找用户已经存在
      */
@@ -176,10 +188,21 @@ public class Config {
     public static final String ACTION_GET_DEVICE = "socket/query";
 
     /**
+     * 查询所有设备action
+     * 参数：ownerId
+     */
+    public static final String ACTION_GET_ALL_DEVICE = "socket/queryAll";
+
+    /**
      * 修改设备信息
      * 携带参数socketId,ownerId，socketName,status等
      */
     public static final String ACTION_DEVICE_UPDATE = "socket/update";
+
+    /**
+     * 删除设备
+     */
+    public static final String ACTION_DEVICE_DELETE = "socket/delete";
 
     /**
      * 设置设备定时action
