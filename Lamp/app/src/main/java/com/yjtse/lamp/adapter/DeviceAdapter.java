@@ -90,6 +90,7 @@ public class DeviceAdapter extends BaseAdapter {
                 if (!"-1".equals(data.get(position).getAvailable())) {
                     if (!NetAvailable.isNetworkAvailable()) {
                         finalASwitch.setChecked(false);
+                        ToastUtils.showToast(context, "网络连不上鸟！！！！！", Toast.LENGTH_LONG);
                     } else {
                         Message msg = Message.obtain();
                         msg.arg1 = position;
