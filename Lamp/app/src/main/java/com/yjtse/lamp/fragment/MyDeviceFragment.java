@@ -84,7 +84,7 @@ public class MyDeviceFragment extends BaseFragment {
                     RequestParams requestParams = new RequestParams();
                     requestParams.add("socketId", sockets_list.get(msg.arg1 - 1).getSocketId());
                     requestParams.add("ownerId", ownerId);
-                    sendSocketDeleteRequest(Config.getRequestURL(Config.ACTION_DEVICE_DELETE), requestParams);
+                    sendSocketDeleteRequest(Config.getRequestURL(Config.ACTION_DEVICE_DELETE), requestParams, msg.arg1 - 1);
 
                     break;
                 case Config.MESSAGE_WHAT_ADD_DEVICE:
@@ -326,7 +326,7 @@ public class MyDeviceFragment extends BaseFragment {
         });
     }
 
-    private void sendSocketDeleteRequest(final String url, RequestParams params) {
+    private void sendSocketDeleteRequest(final String url, final RequestParams params, final int position) {
         AsyncRequest.ClientPost(url, params, new TextNetWorkCallBack() {
             @Override
             public void onMySuccess(int statusCode, Header[] header, String result) {
@@ -334,6 +334,9 @@ public class MyDeviceFragment extends BaseFragment {
                 Result result1 = gson.fromJson(result, Result.class);
                 if (result1.isSuccess()) {
                     ToastUtils.showToast(getActivity(), "成功删除", Toast.LENGTH_LONG);
+                    sockets_list.remove(position);
+                    adapter.setData(sockets_list);
+                    adapter.notifyDataSetChanged();
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setTitle("Notice");
