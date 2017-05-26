@@ -30,10 +30,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.yjtse.lamp.R;
 import com.google.zxing.client.android.HttpHelper;
 import com.google.zxing.client.android.Intents;
 import com.google.zxing.client.android.LocaleManager;
+import com.yjtse.lamp.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

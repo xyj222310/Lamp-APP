@@ -2,8 +2,6 @@ package com.yjtse.lamp.ui;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -26,7 +24,7 @@ public class MainActivity extends Activity {
         if (resultCode == RESULT_OK && requestCode == 0) {
             Bundle bundle = data.getExtras();
             String scanResult = bundle.getString("result");
-            Log.d("TAG",scanResult);
+            Log.d("TAG", scanResult);
         }
     }
 

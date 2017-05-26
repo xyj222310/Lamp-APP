@@ -17,6 +17,7 @@ import com.yjtse.lamp.Config;
 import com.yjtse.lamp.R;
 import com.yjtse.lamp.ui.LoginActivity;
 import com.yjtse.lamp.ui.SuggestionBackActivity;
+import com.yjtse.lamp.utils.NetAvailable;
 import com.yjtse.lamp.utils.SharedPreferencesUtil;
 
 public class SelfCenterFragment extends BaseFragment implements OnClickListener {
@@ -62,7 +63,13 @@ public class SelfCenterFragment extends BaseFragment implements OnClickListener 
         if (TextUtils.isEmpty(phoneNum) || phoneNum == null) {
             self_center_user_login.setText(R.string.selfCenterUserNotLogin);
         } else {
-            self_center_user_login.setText(phoneNum + "-欢迎您");
+            if (NetAvailable.isNetworkAvailable(getActivity())) {
+                self_center_user_login.setTextColor(getActivity().getResources().getColor(R.color.theme_color));
+                self_center_user_login.setText(phoneNum + "-欢迎您");
+            } else {
+                self_center_user_login.setTextColor(getActivity().getResources().getColor(R.color.gray));
+                self_center_user_login.setText(phoneNum + "-您已离线");
+            }
         }
         if (userPass != null && !TextUtils.isEmpty(userPass)) //不为空，说明已经登陆，显示退出
         {

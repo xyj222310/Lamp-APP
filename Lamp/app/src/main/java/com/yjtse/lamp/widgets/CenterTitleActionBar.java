@@ -25,10 +25,6 @@ public class CenterTitleActionBar {
 
     private OnClickActionBarListener mOnClickActionBarListener = null;//ActionBar事件监听器
 
-    public CenterTitleActionBar getCenterTitleActionBar() {
-        return this;
-    }
-
     /**
      * 标题居中
      */
@@ -37,6 +33,10 @@ public class CenterTitleActionBar {
             this.mContext = context;
             this.mActionBar = actionBar;
         }
+    }
+
+    public CenterTitleActionBar getCenterTitleActionBar() {
+        return this;
     }
 
     public void setCustomActionBar() {
@@ -139,17 +139,6 @@ public class CenterTitleActionBar {
         return applicationName;
     }
 
-
-    public static interface OnClickActionBarListener {
-        void onBackBtnClick();
-
-        void onTitleClick();
-
-        void onFirstBtnClick();
-
-        void onSecondBtnClick();
-    }
-
     /*getter setter方法*/
     public int getBackgroundID() {
         return mBackgroundID;
@@ -198,6 +187,16 @@ public class CenterTitleActionBar {
     public void setOnClickActionBarListener(
             OnClickActionBarListener onClickActionBarListener) {
         mOnClickActionBarListener = onClickActionBarListener;
+    }
+
+    public static interface OnClickActionBarListener {
+        void onBackBtnClick();
+
+        void onTitleClick();
+
+        void onFirstBtnClick();
+
+        void onSecondBtnClick();
     }
 
 }

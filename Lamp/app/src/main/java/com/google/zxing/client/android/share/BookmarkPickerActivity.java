@@ -35,49 +35,49 @@ import java.util.List;
  */
 public final class BookmarkPickerActivity extends ListActivity {
 
-  private static final String TAG = BookmarkPickerActivity.class.getSimpleName();
+    private static final String TAG = BookmarkPickerActivity.class.getSimpleName();
 
-  private static final String[] BOOKMARK_PROJECTION = {
-      "title", // Browser.BookmarkColumns.TITLE
-      "url", // Browser.BookmarkColumns.URL
-  };
-  // Copied from android.provider.Browser.BOOKMARKS_URI:
-  private static final Uri BOOKMARKS_URI = Uri.parse("content://browser/bookmarks");
+    private static final String[] BOOKMARK_PROJECTION = {
+            "title", // Browser.BookmarkColumns.TITLE
+            "url", // Browser.BookmarkColumns.URL
+    };
+    // Copied from android.provider.Browser.BOOKMARKS_URI:
+    private static final Uri BOOKMARKS_URI = Uri.parse("content://browser/bookmarks");
 
-  private static final String BOOKMARK_SELECTION = "bookmark = 1 AND url IS NOT NULL";
+    private static final String BOOKMARK_SELECTION = "bookmark = 1 AND url IS NOT NULL";
 
-  private final List<String[]> titleURLs = new ArrayList<>();
+    private final List<String[]> titleURLs = new ArrayList<>();
 
-  @Override
-  protected void onResume() {
-    super.onResume();
-    titleURLs.clear();
-    Cursor cursor = getContentResolver().query(BOOKMARKS_URI, BOOKMARK_PROJECTION,
-        BOOKMARK_SELECTION, null, null);
-    if (cursor == null) {
-      Log.w(TAG, "No cursor returned for bookmark query");
-      finish();
-      return;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        titleURLs.clear();
+        Cursor cursor = getContentResolver().query(BOOKMARKS_URI, BOOKMARK_PROJECTION,
+                BOOKMARK_SELECTION, null, null);
+        if (cursor == null) {
+            Log.w(TAG, "No cursor returned for bookmark query");
+            finish();
+            return;
+        }
+        try {
+            while (cursor.moveToNext()) {
+                titleURLs.add(new String[]{cursor.getString(0), cursor.getString(1)});
+            }
+        } finally {
+            cursor.close();
+        }
+        setListAdapter(new BookmarkAdapter(this, titleURLs));
     }
-    try {
-      while (cursor.moveToNext()) {
-        titleURLs.add(new String[] { cursor.getString(0), cursor.getString(1) });
-      }
-    } finally {
-      cursor.close();
+
+
+    @Override
+    protected void onListItemClick(ListView l, View view, int position, long id) {
+        String[] titleURL = titleURLs.get(position);
+        Intent intent = new Intent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        intent.putExtra("title", titleURL[0]); // Browser.BookmarkColumns.TITLE
+        intent.putExtra("url", titleURL[1]); // Browser.BookmarkColumns.URL
+        setResult(RESULT_OK, intent);
+        finish();
     }
-    setListAdapter(new BookmarkAdapter(this, titleURLs));
-  }
-
-
-  @Override
-  protected void onListItemClick(ListView l, View view, int position, long id) {
-    String[] titleURL = titleURLs.get(position);
-    Intent intent = new Intent();
-    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-    intent.putExtra("title", titleURL[0]); // Browser.BookmarkColumns.TITLE
-    intent.putExtra("url", titleURL[1]); // Browser.BookmarkColumns.URL
-    setResult(RESULT_OK, intent);
-    finish();
-  }
 }

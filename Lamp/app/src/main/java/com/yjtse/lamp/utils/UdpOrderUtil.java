@@ -8,6 +8,7 @@ package com.yjtse.lamp.utils;
 
 public class UdpOrderUtil {
 
+    private static UdpOrderUtil instance = null;
     //家庭模式发送的命令
     public final byte head = (byte) 0xaa;
     public final byte end = 0x55;
@@ -24,15 +25,12 @@ public class UdpOrderUtil {
     //配置SSID、PWD
     public final byte type_config_ssid = (byte) 0xB0;
     public final byte type_return_config_ssid = (byte) 0xB1;
-
     public final byte[] byteBitOneOnly = new byte[]{
             0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, (byte) 0x80
     };
 
     private UdpOrderUtil() {
     }
-
-    private static UdpOrderUtil instance = null;
 
     public static UdpOrderUtil getInstance() {
         if (instance == null) {
@@ -137,6 +135,7 @@ public class UdpOrderUtil {
 
     /**
      * 得到需要设置的内机字节流，内机编号代表着某一位
+     *
      * @param numbers 需要设置的内机编号
      * @return
      */

@@ -14,16 +14,18 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragmentList;
 
     public FragmentAdapter(FragmentManager fm, List<Fragment> fragmentList) {
-         super(fm);
-         this.fragmentList = fragmentList;
+        super(fm);
+        this.fragmentList = fragmentList;
     }
-     @Override
-     public Fragment getItem(int arg0) {
-         return fragmentList.get(arg0);
-     }
-     @Override
-     public int getCount() {
-         return fragmentList.size();
-     }
+
+    @Override
+    public Fragment getItem(int arg0) {
+        return fragmentList.get(arg0);
+    }
+
+    @Override
+    public int getCount() {
+        return fragmentList.size();
+    }
 
 }

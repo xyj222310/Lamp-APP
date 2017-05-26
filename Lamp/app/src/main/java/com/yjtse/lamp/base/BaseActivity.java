@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
-import com.yjtse.lamp.ui.ForgetPasswordActivity;
-
 public class BaseActivity extends Activity {
 
     @Override

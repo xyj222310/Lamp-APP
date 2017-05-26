@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,15 +44,11 @@ import static android.app.Activity.RESULT_OK;
 
 public class MyDeviceFragment extends BaseFragment {
 
-    private MyListView fm_device_message_list;//设备列表
     public static List<Socket> sockets_list;
-
-    private DeviceAdapter adapter;
-
-    private TabFragmentActivity tabActivity;
-
     public static MyDeviceFragment instance = null;
-
+    private MyListView fm_device_message_list;//设备列表
+    private DeviceAdapter adapter;
+    private TabFragmentActivity tabActivity;
     private Dialog dialog = null;
 
     private boolean isFirstLoading = true;
@@ -102,6 +99,7 @@ public class MyDeviceFragment extends BaseFragment {
 
                             requestAddDevice(Config.getRequestURL(Config.ACTION_ADD_DEVICE),
                                     params1);
+                            endDialog();
                         } catch (Exception e) {
                             e.printStackTrace();
                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -125,7 +123,12 @@ public class MyDeviceFragment extends BaseFragment {
             isFirstLoading = false;
             startDialog("正在加载.....");
         }
-        requestAllDevice();
+        if (!NetAvailable.isNetworkAvailable(getActivity())) {
+            ToastUtils.showToast(getActivity(), "请检查网络链接", Toast.LENGTH_LONG);
+        } else {
+            requestAllDevice();
+        }
+        endDialog();
         return view;
     }
 
@@ -193,7 +196,13 @@ public class MyDeviceFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 isRefreshing = true;
-                requestAllDevice();
+//                startDialog("加载中");
+                if (!NetAvailable.isNetworkAvailable(getActivity())) {
+                    ToastUtils.showToast(getActivity(), "请检查网络链接", Toast.LENGTH_LONG);
+                } else {
+                    requestAllDevice();
+                }
+                endDialog();
             }
         });
         tabActivity.setActionBarMyDeviceOnClickListener(new TabFragmentActivity.ActionBarMyDeviceOnClickListener() {
@@ -226,40 +235,35 @@ public class MyDeviceFragment extends BaseFragment {
         RequestParams params = new RequestParams();
         params.add("ownerId", String.valueOf(SharedPreferencesUtil.query(getActivity(), Config.KEY_USERNAME, "String")));
 
-        if (!NetAvailable.isNetworkAvailable(getActivity())) {
-            ToastUtils.showToast(getActivity(), "请检查网络链接", Toast.LENGTH_LONG);
-        } else {
+        AsyncRequest.ClientGet(url, params, new TextNetWorkCallBack() {
+            @TargetApi(Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onMySuccess(int statusCode, Header[] header, final String result) {
 
-            AsyncRequest.ClientGet(url, params, new TextNetWorkCallBack() {
-                @TargetApi(Build.VERSION_CODES.KITKAT)
-                @Override
-                public void onMySuccess(int statusCode, Header[] header, final String result) {
-
-                    final List<Socket> socketList = new Gson().fromJson(result, new TypeToken<List<Socket>>() {
-                    }.getType());
-                    if (result != null) {
-                        if (socketList != null && socketList.size() > 0) {
-                            ToastUtils.showToast(getActivity(), "刷新成功", Toast.LENGTH_LONG);
-                            sockets_list = new ArrayList<>();
-                            sockets_list = socketList;
-                            adapter.setData(sockets_list);
-                            adapter.notifyDataSetChanged();
-                        }
-                    } else {
-                        ToastUtils.showToast(getActivity(), "网络请求失败", Toast.LENGTH_LONG);
+                final List<Socket> socketList = new Gson().fromJson(result, new TypeToken<List<Socket>>() {
+                }.getType());
+                if (result != null) {
+                    if (socketList != null) {
+                        ToastUtils.showToast(getActivity(), "刷新成功", Toast.LENGTH_LONG);
+                        sockets_list = new ArrayList<>();
+                        sockets_list = socketList;
+                        adapter.setData(sockets_list);
+                        adapter.notifyDataSetChanged();
                     }
-
-                    endDialog();
+                } else {
+                    ToastUtils.showToast(getActivity(), "网络请求失败", Toast.LENGTH_LONG);
                 }
+                endDialog();
+            }
 
-                @Override
-                public void onMyFailure(int statusCode, Header[] header, String result, Throwable
-                        th) {
-                    ToastUtils.showToast(getActivity(), "查询错误，请检查网络", Toast.LENGTH_LONG);
-                    endDialog();
-                }
-            });
-        }
+            @Override
+            public void onMyFailure(int statusCode, Header[] header, String result, Throwable
+                    th) {
+                ToastUtils.showToast(getActivity(), "查询错误，请检查网络", Toast.LENGTH_LONG);
+                endDialog();
+            }
+        });
+
 
     }
 
@@ -271,12 +275,13 @@ public class MyDeviceFragment extends BaseFragment {
                 final Result<Socket> socketResult = gson.fromJson(result, new TypeToken<Result<Socket>>() {
                 }.getType());
                 if (socketResult != null) {
-                    if (socketResult.isSuccess() && socketResult.getData() != null) {
+                    if (socketResult.isSuccess() && !TextUtils.isEmpty(socketResult.getData().getSocketId())) {
                         /**
                          * 更新一下列表
                          */
                         sockets_list.add(socketResult.getData());
                         adapter.setData(sockets_list);
+                        ToastUtils.showToast(getActivity(), "添加设备成功", Toast.LENGTH_LONG);
                         adapter.notifyDataSetChanged();
 
                     } else {
@@ -294,7 +299,6 @@ public class MyDeviceFragment extends BaseFragment {
                 ToastUtils.showToast(getActivity(), "添加失败，请检查设备是否已经被注册？", Toast.LENGTH_LONG);
             }
         });
-        endDialog();
     }
 
     private void sendSocketUpdateRequest(final String url, RequestParams params) {

@@ -1,10 +1,7 @@
 package com.yjtse.lamp.parser;
 
-import android.text.TextUtils;
-
 import com.yjtse.lamp.Config;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -95,11 +92,11 @@ public class JsonParser {
     }
 
 
-    private static int checkRemoteInsideIsOffLine(JSONObject object){
+    private static int checkRemoteInsideIsOffLine(JSONObject object) {
         try {
             int online = Integer.valueOf(object.getString("ONLINE"));
             int mode = object.getInt("S1");
-            if(online == 0 || mode == 6){
+            if (online == 0 || mode == 6) {
                 return 1;
             }
         } catch (JSONException e) {

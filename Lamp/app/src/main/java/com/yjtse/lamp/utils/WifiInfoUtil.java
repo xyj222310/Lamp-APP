@@ -17,10 +17,10 @@ public class WifiInfoUtil {
         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         String ssid = wifiInfo.getSSID();
-        String qq = ssid.substring(0,1);
-        String ww = ssid.substring(ssid.length()-1);
-        if(ssid.substring(0,1).equals("\"") && ssid.substring(ssid.length()-1).equals("\"")){
-            ssid = ssid.substring(1,ssid.length() - 1);
+        String qq = ssid.substring(0, 1);
+        String ww = ssid.substring(ssid.length() - 1);
+        if (ssid.substring(0, 1).equals("\"") && ssid.substring(ssid.length() - 1).equals("\"")) {
+            ssid = ssid.substring(1, ssid.length() - 1);
         }
         return ssid;
     }

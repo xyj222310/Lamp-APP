@@ -97,6 +97,18 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     private BeepManager beepManager;
     private AmbientLightManager ambientLightManager;
 
+    private static boolean isZXingURL(String dataString) {
+        if (dataString == null) {
+            return false;
+        }
+        for (String url : ZXING_URLS) {
+            if (dataString.startsWith(url)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     ViewfinderView getViewfinderView() {
         return viewfinderView;
     }
@@ -272,18 +284,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
                     return ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT;
             }
         }
-    }
-
-    private static boolean isZXingURL(String dataString) {
-        if (dataString == null) {
-            return false;
-        }
-        for (String url : ZXING_URLS) {
-            if (dataString.startsWith(url)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override

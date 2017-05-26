@@ -106,23 +106,6 @@ public class DeviceAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private final class DataWrapper {
-        public TextView imageView;
-        public TextView socketNameView;
-        public TextView socket_status_text;
-        public TextView socket_id_text;
-        public Switch aSwitch;
-
-        public DataWrapper(TextView imageView, TextView socketNameView, TextView socket_status_text, TextView socket_id_text, Switch aSwitch) {
-            this.imageView = imageView;
-            this.socketNameView = socketNameView;
-            this.socket_status_text = socket_status_text;
-            this.socket_id_text = socket_id_text;
-            this.aSwitch = aSwitch;
-        }
-    }
-
-
     public List<Socket> getData() {
         return data;
     }
@@ -144,6 +127,22 @@ public class DeviceAdapter extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         return position;
+    }
+
+    private final class DataWrapper {
+        public TextView imageView;
+        public TextView socketNameView;
+        public TextView socket_status_text;
+        public TextView socket_id_text;
+        public Switch aSwitch;
+
+        public DataWrapper(TextView imageView, TextView socketNameView, TextView socket_status_text, TextView socket_id_text, Switch aSwitch) {
+            this.imageView = imageView;
+            this.socketNameView = socketNameView;
+            this.socket_status_text = socket_status_text;
+            this.socket_id_text = socket_id_text;
+            this.aSwitch = aSwitch;
+        }
     }
 
 }

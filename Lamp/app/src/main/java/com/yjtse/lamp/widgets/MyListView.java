@@ -309,10 +309,6 @@ public class MyListView extends ListView implements OnScrollListener {
         isRefreshable = true;
     }
 
-    public interface OnRefreshListener {
-        public void onRefresh();
-    }
-
     public void onRefreshComplete() {
         state = DONE;
         lvHeaderLastUpdatedTv.setText("最近更新:" + new Date().toLocaleString());
@@ -328,6 +324,10 @@ public class MyListView extends ListView implements OnScrollListener {
     public void setAdapter(SimpleAdapter adapter) {
         lvHeaderLastUpdatedTv.setText("最近更新:" + new Date().toLocaleString());
         super.setAdapter(adapter);
+    }
+
+    public interface OnRefreshListener {
+        public void onRefresh();
     }
 
 }

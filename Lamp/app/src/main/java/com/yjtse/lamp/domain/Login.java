@@ -9,10 +9,11 @@ package com.yjtse.lamp.domain;
  * LOGIN_LOCAL  当前登录方式为家庭登陆
  */
 public class Login {
-    public enum State{
-        LOGIN,LOGOUT
+    public enum State {
+        LOGIN, LOGOUT
     }
-    public enum Style{
-        LOGIN_REMOTE,LOGIN_LOCAL
+
+    public enum Style {
+        LOGIN_REMOTE, LOGIN_LOCAL
     }
 }

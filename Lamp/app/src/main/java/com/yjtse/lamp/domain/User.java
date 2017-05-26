@@ -29,6 +29,29 @@ public class User {
 
     }
 
+    public User(String userId, String mail, String phone, String userName, String userPass, String sex, String icon, String role) {
+        this.userId = userId;
+        this.mail = mail;
+        this.phone = phone;
+        this.userName = userName;
+        this.userPass = userPass;
+        this.sex = sex;
+        this.icon = icon;
+        this.role = role;
+    }
+
+    public User(Integer id, String userId, String mail, String phone, String userName, String userPass, String sex, String icon, String role) {
+        this.id = id;
+        this.userId = userId;
+        this.mail = mail;
+        this.phone = phone;
+        this.userName = userName;
+        this.userPass = userPass;
+        this.sex = sex;
+        this.icon = icon;
+        this.role = role;
+    }
+
     public long getId() {
         return id;
     }
@@ -98,29 +121,6 @@ public class User {
     }
 
     public void setRole(String role) {
-        this.role = role;
-    }
-
-    public User( String userId, String mail, String phone, String userName, String userPass, String sex, String icon, String role) {
-        this.userId = userId;
-        this.mail = mail;
-        this.phone = phone;
-        this.userName = userName;
-        this.userPass = userPass;
-        this.sex = sex;
-        this.icon = icon;
-        this.role = role;
-    }
-
-    public User(Integer id, String userId, String mail, String phone, String userName, String userPass, String sex, String icon, String role) {
-        this.id = id;
-        this.userId = userId;
-        this.mail = mail;
-        this.phone = phone;
-        this.userName = userName;
-        this.userPass = userPass;
-        this.sex = sex;
-        this.icon = icon;
         this.role = role;
     }
 

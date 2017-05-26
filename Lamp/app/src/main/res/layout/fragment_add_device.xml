@@ -1,18 +1,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
+    android:orientation="vertical">
+
     <TextView
         android:id="@+id/gateway_list_information"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="welcome，enjoy the Lamp"
-        android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
-        />
+        android:text="welcome，enjoy the Lamp" />
 
     <com.yjtse.lamp.widgets.MyListView
         android:id="@+id/fm_device_message_list"
@@ -20,17 +19,17 @@
         android:layout_height="match_parent" />
 
     <!--<Button-->
-        <!--android:id="@+id/fm_device_message_multiply_setting"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_marginLeft="80dp"-->
-        <!--android:layout_marginRight="80dp"-->
-        <!--android:background="@drawable/login_bg"-->
-        <!--android:text="统一设置"-->
-        <!--android:visibility="gone"-->
-        <!--android:textColor="#ffffff"-->
-        <!--android:layout_marginBottom="30dp"-->
-        <!--android:textSize="20sp" />-->
+    <!--android:id="@+id/fm_device_message_multiply_setting"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_marginLeft="80dp"-->
+    <!--android:layout_marginRight="80dp"-->
+    <!--android:background="@drawable/login_bg"-->
+    <!--android:text="统一设置"-->
+    <!--android:visibility="gone"-->
+    <!--android:textColor="#ffffff"-->
+    <!--android:layout_marginBottom="30dp"-->
+    <!--android:textSize="20sp" />-->
 
 </LinearLayout>

@@ -1,7 +1,5 @@
 package com.yjtse.lamp.domain;
 
-import com.yjtse.lamp.domain.User;
-
 /**
  * Created by yjtse on 2017/4/5.
  */

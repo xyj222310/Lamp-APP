@@ -147,15 +147,6 @@ public class TabFragmentActivity extends FragmentActivity implements ViewPager.O
         }
     }
 
-    //静态接口
-    public interface ActionBarSettingOnClickListener {
-        void onMySettingFirstBtnClick();
-    }
-
-    public interface ActionBarMyDeviceOnClickListener {
-        void onMyDeviceFirstBtnClick();
-    }
-
     public ActionBarMyDeviceOnClickListener getActionBarMyDeviceOnClickListener() {
         return actionBarMyDeviceOnClickListener;
     }
@@ -170,5 +161,14 @@ public class TabFragmentActivity extends FragmentActivity implements ViewPager.O
 
     public void setActionBarSettingOnClickListener(ActionBarSettingOnClickListener actionBarOnClickListener) {
         this.actionBarSettingOnClickListener = actionBarOnClickListener;
+    }
+
+    //静态接口
+    public interface ActionBarSettingOnClickListener {
+        void onMySettingFirstBtnClick();
+    }
+
+    public interface ActionBarMyDeviceOnClickListener {
+        void onMyDeviceFirstBtnClick();
     }
 }

@@ -24,7 +24,7 @@ public class Socket {
 
     private String statusTobe; //定时设定的状态
 
-    public Socket(String socketId, String socketName, String ownerId, String status, String cron, String statusTobe,String available) {
+    public Socket(String socketId, String socketName, String ownerId, String status, String cron, String statusTobe, String available) {
         this.socketId = socketId;
         this.socketName = socketName;
         this.ownerId = ownerId;
@@ -37,6 +37,7 @@ public class Socket {
     public Socket() {
 
     }
+
     public String getAvailable() {
         return available;
     }

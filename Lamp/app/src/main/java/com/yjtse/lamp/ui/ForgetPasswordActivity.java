@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.yjtse.lamp.Config;
 import com.yjtse.lamp.R;
 import com.yjtse.lamp.base.BaseActivity;
 import com.yjtse.lamp.utils.InjectUtils;

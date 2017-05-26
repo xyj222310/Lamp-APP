@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.zxing.client.android.CaptureActivity;
 import com.yjtse.lamp.Config;
 import com.yjtse.lamp.R;
 import com.yjtse.lamp.ui.TabFragmentActivity;
@@ -22,9 +21,9 @@ import static android.app.Activity.RESULT_OK;
 public class SettingFragment extends BaseFragment {
 
 
+    public static SettingFragment instance = null;
     private TextView gateway_list_information;
     private TabFragmentActivity tabActivity;
-    public static SettingFragment instance = null;
     private Dialog dialog = null;
     private boolean isRefreshing = false;
     private boolean isPrepared;
