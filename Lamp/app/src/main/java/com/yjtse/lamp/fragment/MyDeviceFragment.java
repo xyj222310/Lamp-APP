@@ -82,7 +82,7 @@ public class MyDeviceFragment extends BaseFragment {
                     String ownerId = (String) SharedPreferencesUtil.query(getActivity(), Config.KEY_USERNAME, "String");
 //                    if (TextUtils.isEmpty(ownerId)) {
                     RequestParams requestParams = new RequestParams();
-                    requestParams.add("socketId", sockets_list.get(msg.arg1-1).getSocketId());
+                    requestParams.add("socketId", sockets_list.get(msg.arg1 - 1).getSocketId());
                     requestParams.add("ownerId", ownerId);
                     sendSocketDeleteRequest(Config.getRequestURL(Config.ACTION_DEVICE_DELETE), requestParams);
 
@@ -92,6 +92,7 @@ public class MyDeviceFragment extends BaseFragment {
                         String result = msg.obj.toString();
                         Gson gson = new Gson();
                         try {
+                            startDialog("正在添加设备，请耐心等待");
                             Socket socket = gson.fromJson(result, Socket.class);
                             RequestParams params1 = new RequestParams();
                             params1.add("socketId", socket.getSocketId());
@@ -293,6 +294,7 @@ public class MyDeviceFragment extends BaseFragment {
                 ToastUtils.showToast(getActivity(), "添加失败，请检查设备是否已经被注册？", Toast.LENGTH_LONG);
             }
         });
+        endDialog();
     }
 
     private void sendSocketUpdateRequest(final String url, RequestParams params) {

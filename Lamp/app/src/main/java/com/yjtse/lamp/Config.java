@@ -49,8 +49,8 @@ public class Config {
     /**
      * 服务器的路径
      */
-//    public static final String SERVER_URL = "http://60.205.219.43/lamp";//服务器路径http://icloud.ticachina.com
-    public static final String SERVER_URL = "http://192.168.191.1";//服务器路径http://icloud.ticachina.com
+    public static final String SERVER_URL = "http://60.205.219.43/lamp";//服务器路径http://icloud.ticachina.com
+//    public static final String SERVER_URL = "http://192.168.191.1";//服务器路径http://icloud.ticachina.com
 
 
     //请求参数键
