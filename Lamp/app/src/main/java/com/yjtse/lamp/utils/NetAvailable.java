@@ -4,15 +4,9 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
-import android.text.TextUtils;
 import android.util.Log;
 
-import com.yjtse.lamp.Config;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -28,14 +22,14 @@ public class NetAvailable {
      * @param context
      * @return
      */
-    public static boolean isNetworkAvailable(Context context) {
+    public static boolean isConnect(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm != null) {
             NetworkInfo[] info = cm.getAllNetworkInfo();
             if (info != null) {
                 for (int i = 0; i < info.length; i++) {
                     if (info[i].getState() == NetworkInfo.State.CONNECTED) {
-                        return isConnect();
+                        return true;
                     }
                 }
             }
@@ -58,11 +52,11 @@ public class NetAvailable {
     private static HttpURLConnection con;
     private static int state = -1;
 
-    public static synchronized boolean isConnect() {
+    public static synchronized boolean isNetworkAvailable() {
         String result = null;
         try {
             String ip = "www.baidu.com";// ping 的地址，可以换成任何一种可靠的外网
-            Process p = Runtime.getRuntime().exec("ping -c 1 -w 100 " + ip);// ping网址3次
+            Process p = Runtime.getRuntime().exec("ping -c 1 -w 1 " + ip);// ping网址3次
             // ping的状态
             int status = p.waitFor();
             if (status == 0) {

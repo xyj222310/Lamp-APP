@@ -86,25 +86,8 @@ public class SettingFragment extends BaseFragment {
             Bundle bundle = data.getExtras();
             String scanResult = bundle.getString("result");
             Message msg = Message.obtain();
-            msg.what = Config.MESSAGE_WHAT_ADD_DEVICE;
-            msg.obj = scanResult;
+//            msg.what = Config.MESSAGE_WHAT_ADD_DEVICE;
+//            msg.obj = scanResult;
         }
     }
-
-    private boolean checkInsideIsOK(JSONArray array1) {
-        for (int i = 0; i < array1.length(); i++) {
-            try {
-                if (array1.getJSONObject(i).getInt("NUM") == 0) {
-                    byte mode = (byte) array1.getJSONObject(i).getInt("S1");
-                    if ((mode & 0x80) == 0x80) {
-                        return true;
-                    }
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
-    }
-
 }

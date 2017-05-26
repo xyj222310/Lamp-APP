@@ -63,7 +63,7 @@ public class SelfCenterFragment extends BaseFragment implements OnClickListener 
         if (TextUtils.isEmpty(phoneNum) || phoneNum == null) {
             self_center_user_login.setText(R.string.selfCenterUserNotLogin);
         } else {
-            if (NetAvailable.isNetworkAvailable(getActivity())) {
+            if (NetAvailable.isConnect(getActivity())) {
                 self_center_user_login.setTextColor(getActivity().getResources().getColor(R.color.theme_color));
                 self_center_user_login.setText(phoneNum + "-欢迎您");
             } else {

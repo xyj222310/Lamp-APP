@@ -64,10 +64,8 @@ public class MyDeviceFragment extends BaseFragment {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                /*
-                更新设备状态
-                 */
                 case Config.MESSAGE_WHAT_UPDATE_DEVICE_STATUS:
+                    startDialog("设置插座开关");
                     RequestParams params = new RequestParams();
                     params.put("socketId", sockets_list.get(msg.arg1).getSocketId());
                     params.put("ownerId", String.valueOf(SharedPreferencesUtil.query(getActivity(), Config.KEY_USERNAME, "String")));
@@ -76,30 +74,28 @@ public class MyDeviceFragment extends BaseFragment {
                     break;
 
                 case Config.MESSAGE_WHAT_DEC_DEVICE:
+                    startDialog("删除设备");
                     String ownerId = (String) SharedPreferencesUtil.query(getActivity(), Config.KEY_USERNAME, "String");
 //                    if (TextUtils.isEmpty(ownerId)) {
                     RequestParams requestParams = new RequestParams();
                     requestParams.add("socketId", sockets_list.get(msg.arg1 - 1).getSocketId());
                     requestParams.add("ownerId", ownerId);
                     sendSocketDeleteRequest(Config.getRequestURL(Config.ACTION_DEVICE_DELETE), requestParams, msg.arg1 - 1);
-
                     break;
                 case Config.MESSAGE_WHAT_ADD_DEVICE:
                     if (msg.obj != null) {
                         String result = msg.obj.toString();
                         Gson gson = new Gson();
                         try {
-                            startDialog("正在添加设备，请耐心等待");
+                            startDialog("添加设备。。。");
                             Socket socket = gson.fromJson(result, Socket.class);
                             RequestParams params1 = new RequestParams();
                             params1.add("socketId", socket.getSocketId());
                             params1.add("socketName", socket.getSocketName());
                             params1.add("ownerId", (String) SharedPreferencesUtil.query(getActivity(), Config.KEY_USERNAME, "String"));
                             params1.add("status", socket.getStatus());
-
                             requestAddDevice(Config.getRequestURL(Config.ACTION_ADD_DEVICE),
                                     params1);
-                            endDialog();
                         } catch (Exception e) {
                             e.printStackTrace();
                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -107,6 +103,7 @@ public class MyDeviceFragment extends BaseFragment {
                             builder.setMessage("请扫描正确的二维码");
                             builder.setPositiveButton("确定", null);
                             builder.create().show();
+                            endDialog();
                         }
                     }
                     break;
@@ -123,7 +120,7 @@ public class MyDeviceFragment extends BaseFragment {
             isFirstLoading = false;
             startDialog("正在加载.....");
         }
-        if (!NetAvailable.isNetworkAvailable(getActivity())) {
+        if (!NetAvailable.isConnect(getActivity())) {
             ToastUtils.showToast(getActivity(), "请检查网络链接", Toast.LENGTH_LONG);
         } else {
             requestAllDevice();
@@ -197,7 +194,7 @@ public class MyDeviceFragment extends BaseFragment {
             public void onRefresh() {
                 isRefreshing = true;
 //                startDialog("加载中");
-                if (!NetAvailable.isNetworkAvailable(getActivity())) {
+                if (!NetAvailable.isNetworkAvailable()) {
                     ToastUtils.showToast(getActivity(), "请检查网络链接", Toast.LENGTH_LONG);
                 } else {
                     requestAllDevice();
@@ -229,7 +226,6 @@ public class MyDeviceFragment extends BaseFragment {
     }
 
     private void requestAllDevice() {
-
         String url = Config.getRequestURL(Config.ACTION_GET_ALL_DEVICE);
 
         RequestParams params = new RequestParams();
@@ -239,21 +235,23 @@ public class MyDeviceFragment extends BaseFragment {
             @TargetApi(Build.VERSION_CODES.KITKAT)
             @Override
             public void onMySuccess(int statusCode, Header[] header, final String result) {
-
-                final List<Socket> socketList = new Gson().fromJson(result, new TypeToken<List<Socket>>() {
-                }.getType());
-                if (result != null) {
-                    if (socketList != null) {
+                try {
+                    final List<Socket> socketList = new Gson().fromJson(result, new TypeToken<List<Socket>>() {
+                    }.getType());
+                    if (!TextUtils.isEmpty(result) && socketList != null) {
                         ToastUtils.showToast(getActivity(), "刷新成功", Toast.LENGTH_LONG);
                         sockets_list = new ArrayList<>();
                         sockets_list = socketList;
                         adapter.setData(sockets_list);
                         adapter.notifyDataSetChanged();
+                        endDialog();
+                    } else {
+                        ToastUtils.showToast(getActivity(), "网络请求失败", Toast.LENGTH_LONG);
+                        endDialog();
                     }
-                } else {
-                    ToastUtils.showToast(getActivity(), "网络请求失败", Toast.LENGTH_LONG);
+                } catch (Exception e) {
+                    responseError();
                 }
-                endDialog();
             }
 
             @Override
@@ -263,8 +261,6 @@ public class MyDeviceFragment extends BaseFragment {
                 endDialog();
             }
         });
-
-
     }
 
     private void requestAddDevice(final String url, RequestParams params) {
@@ -272,26 +268,33 @@ public class MyDeviceFragment extends BaseFragment {
             @Override
             public void onMySuccess(int statusCode, Header[] header, String result) {
                 Gson gson = new Gson();
-                final Result<Socket> socketResult = gson.fromJson(result, new TypeToken<Result<Socket>>() {
-                }.getType());
-                if (socketResult != null) {
-                    if (socketResult.isSuccess() && !TextUtils.isEmpty(socketResult.getData().getSocketId())) {
-                        /**
-                         * 更新一下列表
-                         */
-                        sockets_list.add(socketResult.getData());
-                        adapter.setData(sockets_list);
-                        ToastUtils.showToast(getActivity(), "添加设备成功", Toast.LENGTH_LONG);
-                        adapter.notifyDataSetChanged();
+                try {
+                    final Result<Socket> socketResult = gson.fromJson(result, new TypeToken<Result<Socket>>() {
+                    }.getType());
+                    if (socketResult != null) {
+                        if (socketResult.isSuccess() && !TextUtils.isEmpty(socketResult.getData().getSocketId())) {
+                            /**
+                             * 更新一下列表
+                             */
+                            sockets_list.add(socketResult.getData());
+                            adapter.setData(sockets_list);
+                            ToastUtils.showToast(getActivity(), "添加设备成功", Toast.LENGTH_LONG);
+                            adapter.notifyDataSetChanged();
+                            endDialog();
 
-                    } else {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                        builder.setTitle("Alert");
-                        builder.setMessage("添加失败：" + socketResult.getError());
-                        builder.setPositiveButton("确定", null);
-                        builder.create().show();
+                        } else {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle("Alert");
+                            builder.setMessage("添加失败：" + socketResult.getError());
+                            builder.setPositiveButton("确定", null);
+                            builder.create().show();
+                            endDialog();
+                        }
                     }
+                } catch (Exception e) {
+                    responseError();
                 }
+
             }
 
             @Override
@@ -306,26 +309,34 @@ public class MyDeviceFragment extends BaseFragment {
             @Override
             public void onMySuccess(int statusCode, Header[] header, String result) {
                 Gson gson = new Gson();
-                final Result result1 = gson.fromJson(result, Result.class);
-                if (result1 != null) {
-                    if (result1.isSuccess()) {
-                        ToastUtils.showToast(getActivity(), "设置成功", Toast.LENGTH_SHORT);
-                    } else {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                        builder.setTitle("Notice");
-                        builder.setMessage("更新失败：" + result1.getError());
-                        builder.setPositiveButton("确定", null);
-                        builder.create().show();
+                try {
+                    final Result result1 = gson.fromJson(result, Result.class);
+                    if (result1 != null) {
+                        if (result1.isSuccess()) {
+                            ToastUtils.showToast(getActivity(), "设置成功", Toast.LENGTH_SHORT);
+                            endDialog();
+                        } else {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle("Notice");
+                            builder.setMessage("更新失败：" + result1.getError());
+                            builder.setPositiveButton("确定", null);
+                            builder.create().show();
+                            endDialog();
+                        }
                     }
+                } catch (Exception e) {
+                    responseError();
                 }
             }
 
             @Override
-            public void onMyFailure(int statusCode, Header[] header, String result, Throwable th) {
+            public void onMyFailure(int statusCode, Header[] header, String result, Throwable
+                    th) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Alert");
                 builder.setMessage("网络请求失败！");
                 builder.create().show();
+                endDialog();
             }
         });
     }
@@ -335,16 +346,24 @@ public class MyDeviceFragment extends BaseFragment {
             @Override
             public void onMySuccess(int statusCode, Header[] header, String result) {
                 Gson gson = new Gson();
-                Result result1 = gson.fromJson(result, Result.class);
-                if (result1.isSuccess()) {
-                    ToastUtils.showToast(getActivity(), "成功删除", Toast.LENGTH_LONG);
-                    sockets_list.remove(position);
-                    adapter.setData(sockets_list);
-                    adapter.notifyDataSetChanged();
-                } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setTitle("Notice");
-                    builder.setMessage("删除失败：" + result1.getError());
+                try {
+                    Result result1 = gson.fromJson(result, Result.class);
+                    if (result1.isSuccess()) {
+                        ToastUtils.showToast(getActivity(), "成功删除", Toast.LENGTH_LONG);
+                        sockets_list.remove(position);
+                        adapter.setData(sockets_list);
+                        adapter.notifyDataSetChanged();
+                        endDialog();
+                    } else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle("Notice");
+                        builder.setMessage("删除失败：" + result1.getError());
+                        builder.setPositiveButton("确定", null);
+                        builder.create().show();
+                        endDialog();
+                    }
+                } catch (Exception e) {
+                    responseError();
                 }
             }
 
@@ -353,10 +372,23 @@ public class MyDeviceFragment extends BaseFragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Notice");
                 builder.setMessage("删除失败");
+                builder.show();
+                endDialog();
             }
         });
+    }
 
-
+    private void responseError() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Notice");
+        if (!NetAvailable.isNetworkAvailable()) {
+            builder.setMessage("操作失效，\n 无法访问网络");
+        } else {
+            builder.setMessage("操作失效，\n 网络请求返回数据格式有误！");
+        }
+        builder.setPositiveButton("确定", null);
+        builder.create().show();
+        endDialog();
     }
 
     /// /////////////加载数据的弹出框，吧之前的activity改成现在的样子///////////////////////

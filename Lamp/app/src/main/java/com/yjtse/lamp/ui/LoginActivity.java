@@ -167,8 +167,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     hint_string.setText("密码长度必须大于6位");
                     return;
                 }
-                if (!NetAvailable.isNetworkAvailable(this)) {
-                    hint_string.setText("设备未联网，请打开数据流量或连接WIFI热点");
+                if (!NetAvailable.isNetworkAvailable()) {
+                    hint_string.setText("设备无法联网，请打开数据流量或连接WIFI热点");
                     return;
                 }
 

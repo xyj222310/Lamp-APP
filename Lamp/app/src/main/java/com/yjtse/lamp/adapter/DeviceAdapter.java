@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.yjtse.lamp.Config;
 import com.yjtse.lamp.R;
 import com.yjtse.lamp.domain.Socket;
+import com.yjtse.lamp.utils.NetAvailable;
 import com.yjtse.lamp.utils.ToastUtils;
 
 import java.util.HashMap;
@@ -87,12 +88,16 @@ public class DeviceAdapter extends BaseAdapter {
                 HashMap<String, String> params = new HashMap<>();
 //                Socket socket = new Socket();
                 if (!"-1".equals(data.get(position).getAvailable())) {
-                    Message msg = Message.obtain();
-                    msg.arg1 = position;
-                    msg.arg2 = isChecked ? 1 : 0;
-                    msg.what = Config.MESSAGE_WHAT_UPDATE_DEVICE_STATUS;
-                    handler.sendMessage(msg);
-                    finalASwitch.setChecked(isChecked);
+                    if (!NetAvailable.isNetworkAvailable()) {
+                        finalASwitch.setChecked(false);
+                    } else {
+                        Message msg = Message.obtain();
+                        msg.arg1 = position;
+                        msg.arg2 = isChecked ? 1 : 0;
+                        msg.what = Config.MESSAGE_WHAT_UPDATE_DEVICE_STATUS;
+                        handler.sendMessage(msg);
+                        finalASwitch.setChecked(isChecked);
+                    }
                 } else {
                     /**
                      * 如果设备已经断线了，无论怎么操作都保持关闭状态
