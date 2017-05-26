@@ -42,6 +42,9 @@ public class Config {
         }
     }
 
+
+    public static final int CAMERA_REQUEST_CODE = 0;
+
     public static final String BmobSMSToken = "e1ece4992023d2886aae2920f0648162";
     /**
      * 服务器的路径

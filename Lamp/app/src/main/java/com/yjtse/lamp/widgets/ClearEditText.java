@@ -35,7 +35,7 @@ public class ClearEditText extends android.support.v7.widget.AppCompatEditText i
     private void init() {
         mClearDrawable = getCompoundDrawables()[2]; //获得图片的高
         if (mClearDrawable == null) {
-            mClearDrawable = getResources().getDrawable(R.drawable.et_delete_right);
+            mClearDrawable = getResources().getDrawable(android.R.drawable.ic_delete);
         }
 
         mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth(), mClearDrawable.getIntrinsicHeight());

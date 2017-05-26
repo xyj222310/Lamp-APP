@@ -47,7 +47,6 @@ public class MyDeviceFragment extends BaseFragment {
     public static List<Socket> sockets_list;
 
     private DeviceAdapter adapter;
-//    private Button fm_device_message_multiply_setting;
 
     private TabFragmentActivity tabActivity;
 
@@ -80,14 +79,39 @@ public class MyDeviceFragment extends BaseFragment {
                     break;
 
                 case Config.MESSAGE_WHAT_DEC_DEVICE:
-                    sendSocketDeleteRequest(Config.getRequestURL(Config.ACTION_DEVICE_DELETE),
+                    String ownerId = (String) SharedPreferencesUtil.query(getActivity(), Config.KEY_USERNAME, "String");
+//                    if (TextUtils.isEmpty(ownerId)) {
+                    RequestParams requestParams = new RequestParams();
+                    requestParams.add("socketId", sockets_list.get(msg.arg1-1).getSocketId());
+                    requestParams.add("ownerId", ownerId);
+                    sendSocketDeleteRequest(Config.getRequestURL(Config.ACTION_DEVICE_DELETE), requestParams);
 
-                            new RequestParams("socketId", sockets_list.get(msg.arg1).getSocketId()));
-//                    RequestParams params2 = new RequestParams();
-//                    params2.put("socketId", sockets_list.get(msg.arg1).getSocketId());
+                    break;
+                case Config.MESSAGE_WHAT_ADD_DEVICE:
+                    if (msg.obj != null) {
+                        String result = msg.obj.toString();
+                        Gson gson = new Gson();
+                        try {
+                            Socket socket = gson.fromJson(result, Socket.class);
+                            RequestParams params1 = new RequestParams();
+                            params1.add("socketId", socket.getSocketId());
+                            params1.add("socketName", socket.getSocketName());
+                            params1.add("ownerId", (String) SharedPreferencesUtil.query(getActivity(), Config.KEY_USERNAME, "String"));
+                            params1.add("status", socket.getStatus());
+
+                            requestAddDevice(Config.getRequestURL(Config.ACTION_ADD_DEVICE),
+                                    params1);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle("Alert");
+                            builder.setMessage("请扫描正确的二维码");
+                            builder.setPositiveButton("确定", null);
+                            builder.create().show();
+                        }
+                    }
                     break;
             }
-
         }
     };
 
@@ -143,6 +167,7 @@ public class MyDeviceFragment extends BaseFragment {
          * 长按删除监听事件
          */
         fm_device_message_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -174,10 +199,23 @@ public class MyDeviceFragment extends BaseFragment {
             @Override
             public void onMyDeviceFirstBtnClick() {
                 Intent openCameraIntent = new Intent(getActivity(), CaptureActivity.class);
-                startActivityForResult(openCameraIntent, 0);
+                startActivityForResult(openCameraIntent, Config.CAMERA_REQUEST_CODE);
             }
         });
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == Config.CAMERA_REQUEST_CODE) {
+            Bundle bundle = data.getExtras();
+            String scanResult = bundle.getString("result");
+            Message msg = Message.obtain();
+            msg.what = Config.MESSAGE_WHAT_ADD_DEVICE;
+            msg.obj = scanResult;
+            handler.sendMessage(msg);
+        }
     }
 
     private void requestAllDevice() {
@@ -224,17 +262,37 @@ public class MyDeviceFragment extends BaseFragment {
 
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == 0) {
-            Bundle bundle = data.getExtras();
-            String scanResult = bundle.getString("result");
-            Message msg = Message.obtain();
-            msg.what = Config.MESSAGE_WHAT_ADD_DEVICE;
-            msg.obj = scanResult;
-            handler.sendMessage(msg);
-        }
+    private void requestAddDevice(final String url, RequestParams params) {
+        AsyncRequest.ClientPost(url, params, new TextNetWorkCallBack() {
+            @Override
+            public void onMySuccess(int statusCode, Header[] header, String result) {
+                Gson gson = new Gson();
+                final Result<Socket> socketResult = gson.fromJson(result, new TypeToken<Result<Socket>>() {
+                }.getType());
+                if (socketResult != null) {
+                    if (socketResult.isSuccess() && socketResult.getData() != null) {
+                        /**
+                         * 更新一下列表
+                         */
+                        sockets_list.add(socketResult.getData());
+                        adapter.setData(sockets_list);
+                        adapter.notifyDataSetChanged();
+
+                    } else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle("Alert");
+                        builder.setMessage("添加失败：" + socketResult.getError());
+                        builder.setPositiveButton("确定", null);
+                        builder.create().show();
+                    }
+                }
+            }
+
+            @Override
+            public void onMyFailure(int statusCode, Header[] header, String result, Throwable th) {
+                ToastUtils.showToast(getActivity(), "添加失败，请检查设备是否已经被注册？", Toast.LENGTH_LONG);
+            }
+        });
     }
 
     private void sendSocketUpdateRequest(final String url, RequestParams params) {
@@ -249,7 +307,7 @@ public class MyDeviceFragment extends BaseFragment {
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setTitle("Notice");
-                        builder.setMessage("更新失败：" + result1.getData());
+                        builder.setMessage("更新失败：" + result1.getError());
                         builder.setPositiveButton("确定", null);
                         builder.create().show();
                     }
@@ -270,9 +328,15 @@ public class MyDeviceFragment extends BaseFragment {
         AsyncRequest.ClientPost(url, params, new TextNetWorkCallBack() {
             @Override
             public void onMySuccess(int statusCode, Header[] header, String result) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Notice");
-                builder.setMessage("成功删除");
+                Gson gson = new Gson();
+                Result result1 = gson.fromJson(result, Result.class);
+                if (result1.isSuccess()) {
+                    ToastUtils.showToast(getActivity(), "成功删除", Toast.LENGTH_LONG);
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("Notice");
+                    builder.setMessage("删除失败：" + result1.getError());
+                }
             }
 
             @Override

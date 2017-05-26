@@ -65,6 +65,7 @@ public class DeviceAdapter extends BaseAdapter {
         socket_status_text.setText(data.get(position).getAvailable());
         imageView.setBackgroundResource(R.drawable.ic_launcher);
         aSwitch.setChecked("1".equals(data.get(position).getStatus()));
+        aSwitch.setFocusable(false);
 
         switch (data.get(position).getAvailable()) {
             case "-1":
