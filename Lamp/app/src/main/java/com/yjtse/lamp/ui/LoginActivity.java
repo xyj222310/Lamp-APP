@@ -14,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
 import com.yjtse.lamp.Config;
 import com.yjtse.lamp.R;
@@ -21,6 +22,7 @@ import com.yjtse.lamp.asynchttp.TextNetWorkCallBack;
 import com.yjtse.lamp.base.BaseActivity;
 import com.yjtse.lamp.contentview.ContentWidget;
 import com.yjtse.lamp.domain.Result;
+import com.yjtse.lamp.domain.User;
 import com.yjtse.lamp.requests.AsyncRequest;
 import com.yjtse.lamp.utils.InjectUtils;
 import com.yjtse.lamp.utils.NetAvailable;
@@ -32,6 +34,8 @@ import org.apache.http.Header;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
@@ -171,14 +175,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     hint_string.setText("设备无法联网，请打开数据流量或连接WIFI热点");
                     return;
                 }
-
                 startDialog("正在登录");
                 HashMap<String, String> params = new HashMap<>();
                 params.put(Config.KEY_USERNAME, userId);
                 params.put(Config.KEY_PASSWORD, userPass);
-                params.put(Config.KEY_MOBILE_LOGIN, "true");
-                params.put("remenberMe", isRememberPassword + "");
-
+//                params.put(Config.KEY_MOBILE_LOGIN, "true");
+//                params.put("remenberMe", isRememberPassword + "");
+                if (isMobileNO(userId)) {
+                    params.put("phone", userId);
+                }
                 Config.writeToDebug("login...url " + Config.getRequestURL(Config.ACTION_LOGIN));
                 Config.writeToDebug("login...params " + Config.KEY_USERNAME + "=" + userId + Config.KEY_PASSWORD + "=" + userPass + "remenberMe=" + "true");
                 sendLoginPostRequest(Config.getRequestURL(Config.ACTION_LOGIN), params, System.currentTimeMillis(), userId, userPass);
@@ -196,7 +201,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void sendLoginPostRequest(final String url, final Map<String, String> params, final long startTime, final String userId, final String userPass) {
-
         RequestParams params1 = new RequestParams();
         for (Map.Entry<String, String> entry : params.entrySet()) {
             params1.add(entry.getKey(), entry.getValue());
@@ -204,16 +208,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         AsyncRequest.ClientPost(url, params1, new TextNetWorkCallBack() {
             @Override
             public void onMySuccess(int statusCode, Header[] header, String result) {
-                Gson gson = new Gson();
-                final Result token = gson.fromJson(result, Result.class);
+                final Result<User> token = new Gson().fromJson(result, new TypeToken<Result<User>>() {
+                }.getType());
                 Config.writeToDebug(result);
                 final long endTime = System.currentTimeMillis();
                 if (token != null) {
                     if (token.isSuccess()) {
-                        SharedPreferencesUtil.save(LoginActivity.this, Config.KEY_PASSWORD, userPass);
+                        SharedPreferencesUtil.save(LoginActivity.this, Config.KEY_PASSWORD, token.getData().getUserPass());
                         SharedPreferencesUtil.save(LoginActivity.this, Config.KEY_REMEMBER_PWD, isRememberPassword);
-                        SharedPreferencesUtil.save(LoginActivity.this, Config.KEY_USERNAME, userId);
-
+                        SharedPreferencesUtil.save(LoginActivity.this, Config.KEY_USERNAME, token.getData().getUserId());
                         launchActivity(LoginActivity.this, TabFragmentActivity.class);
                         LoginActivity.this.finish();
                     } else {
@@ -225,9 +228,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             }
                         });
                     }
-
                 } else {
-//                            msg.what = Config.MESSAGE_WHAT_HTTP_LOGIN_FAIL;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -253,6 +254,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     }
 
+    public static boolean isMobileNO(String mobiles) {
+        Pattern p = Pattern.compile("^(13[0-9]|14[57]|15[0-35-9]|17[6-8]|18[0-9])[0-9]{8}$");
+        Matcher m = p.matcher(mobiles);
+        return m.matches();
+    }
 
     private void startDialog(String msg) {
         dialog = new Dialog(LoginActivity.this, R.style.MyDialogStyle);

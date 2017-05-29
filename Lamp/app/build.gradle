@@ -3,12 +3,13 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 22
     buildToolsVersion "25.0.0"
+
     defaultConfig {
         applicationId "com.yjtse.lamp"
         minSdkVersion 19
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0"
+        versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -27,6 +28,13 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
+
+    compile 'com.android.support:support-v4:23.2.1'
+    compile 'cn.bmob.android:http-legacy:1.0'
+    compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
+//    compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
+//    compile 'cn.bmob.android:bmob-sms:1.0.1'
+//    compile 'cn.bmob.android:bmob-push:0.8'
 
     compile 'com.loopj.android:android-async-http:1.4.5'
     compile 'com.github.traex.rippleeffect:library:1.3'

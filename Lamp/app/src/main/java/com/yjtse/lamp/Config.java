@@ -15,12 +15,12 @@ public class Config {
     public static final boolean DEBUG = false;
     public static final String DEBUG_FILE_NAME = "/LAMP_DEBUG.txt";
     public static final int CAMERA_REQUEST_CODE = 0;
-    public static final String BmobSMSToken = "e1ece4992023d2886aae2920f0648162";
+    public static final String BmobSMSToken = "205241f79a98efbd59fafc6f6c5187fb";
     /**
      * 服务器的路径
      */
-    public static final String SERVER_URL = "http://60.205.219.43/lamp";//服务器路径http://icloud.ticachina.com
-    //    public static final String SERVER_URL = "http://192.168.191.1";//服务器路径http://icloud.ticachina.com
+//    public static final String SERVER_URL = "http://60.205.219.43/lamp";//服务器路径http://icloud.ticachina.com
+        public static final String SERVER_URL = "http://192.168.191.1";//服务器路径http://icloud.ticachina.com
 
     public static final String KEY_REMEMBER_PWD = "remember_password";
     //请求参数键
@@ -99,6 +99,13 @@ public class Config {
      * 登录失败
      */
     public static final int MESSAGE_WHAT_HTTP_LOGIN_FAIL = 108;
+
+    /**
+     * 添加设备action
+     * 携带参数socketId,ownerId,等
+     */
+    public static final String ACTION_ADD_USER = "user/register";
+
     /**
      * 查询用户action
      * 必须携带的参数

@@ -23,7 +23,6 @@
         android:background="@drawable/input_bg"
         android:drawableRight="@android:drawable/ic_delete"
         android:hint="@string/inputUsernameStr"
-        android:inputType="number"
         android:maxLength="20"
         android:paddingLeft="15dp"
         android:singleLine="true"
