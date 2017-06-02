@@ -3,7 +3,6 @@ package com.yjtse.lamp.fragment;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,8 +12,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +27,7 @@ import com.yjtse.lamp.domain.Result;
 import com.yjtse.lamp.domain.Socket;
 import com.yjtse.lamp.requests.AsyncRequest;
 import com.yjtse.lamp.ui.TabFragmentActivity;
+import com.yjtse.lamp.ui.TimerActivity;
 import com.yjtse.lamp.utils.NetAvailable;
 import com.yjtse.lamp.utils.SharedPreferencesUtil;
 import com.yjtse.lamp.utils.ToastUtils;
@@ -39,8 +37,6 @@ import org.apache.http.Header;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.app.Activity.RESULT_OK;
 
 public class MyDeviceFragment extends BaseFragment {
 
@@ -134,12 +130,9 @@ public class MyDeviceFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         instance = this;
         tabActivity = (TabFragmentActivity) getActivity();
-        tabActivity.setActionBarSettingOnClickListener(new TabFragmentActivity.ActionBarSettingOnClickListener() {
-            @Override
-            public void onMySettingFirstBtnClick() {
-                Intent openCameraIntent = new Intent(getActivity(), CaptureActivity.class);
-                startActivityForResult(openCameraIntent, 0);
-            }
+        tabActivity.setActionBarSettingOnClickListener(() -> {
+            Intent openCameraIntent = new Intent(getActivity(), CaptureActivity.class);
+            startActivityForResult(openCameraIntent, 0);
         });
 
         fm_device_message_list = (MyListView) getActivity().findViewById(R.id.fm_device_message_list);//关联ListView组件,注意getActivity
@@ -148,81 +141,52 @@ public class MyDeviceFragment extends BaseFragment {
         adapter = new DeviceAdapter(getActivity(), handler, R.layout.item_device);
         adapter.setData(sockets_list);
         fm_device_message_list.setAdapter(adapter);
-        fm_device_message_list.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
-                /**
-                 * 详情页面，设置定时
-                 */
-//                    Intent intent = new Intent(getActivity(), ControlActivity.class);
-//                    intent.putExtra("GateNumber", gateNumber);//网关号
-//                    intent.putExtra("ip", ip);
-//                    intent.putExtra("port", port);
-//                    intent.putExtra("DeviceSelectedItem", clickedEntity);//将被点击的记录放入DeviceSelectedItem值中，利用Intent机制传递过去
-//                    startActivity(intent);
-//
+        fm_device_message_list.setOnItemClickListener((arg0, arg1, position, id) -> {
+            /**
+             * 详情页面，设置定时
+             */
+            if (!"1".equals(sockets_list.get(position - 1).getAvailable())) {
+                ToastUtils.showToast(getActivity(), "设备离线，请接通设备再试", Toast.LENGTH_LONG);
+                return;
             }
+            Intent intent = new Intent(getActivity(), TimerActivity.class);
+            intent.putExtra("socketId", sockets_list.get(position - 1).getSocketId());//
+            intent.putExtra("status", sockets_list.get(position - 1).getStatus());
+            startActivity(intent);
         });
 
         /**
          * 长按删除监听事件
          */
-        fm_device_message_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Notice");
-                builder.setMessage("您将删除此设备？");
-                builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Message msg = Message.obtain();
-                        msg.arg1 = position;
-                        msg.what = Config.MESSAGE_WHAT_DEC_DEVICE;
-                        handler.sendMessage(msg);
-                    }
-                });
-                builder.setNegativeButton("no", null);
-                builder.create().show();
-                return false;
-            }
+        fm_device_message_list.setOnItemLongClickListener((parent, view, position, id) -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Notice");
+            builder.setMessage("您将删除此设备？");
+            builder.setPositiveButton("yes", (dialog1, which) -> {
+                Message msg = Message.obtain();
+                msg.arg1 = position;
+                msg.what = Config.MESSAGE_WHAT_DEC_DEVICE;
+                handler.sendMessage(msg);
+            });
+            builder.setNegativeButton("no", null);
+            builder.create().show();
+            return false;
         });
 
-        fm_device_message_list.setOnRefreshListener(new MyListView.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                isRefreshing = true;
+        fm_device_message_list.setOnRefreshListener(() -> {
+            isRefreshing = true;
 //                startDialog("加载中");
-                if (!NetAvailable.isNetworkAvailable()) {
-                    ToastUtils.showToast(getActivity(), "请检查网络链接", Toast.LENGTH_LONG);
-                } else {
-                    requestAllDevice();
-                }
-                endDialog();
+            if (!NetAvailable.isNetworkAvailable()) {
+                ToastUtils.showToast(getActivity(), "请检查网络链接", Toast.LENGTH_LONG);
+            } else {
+                requestAllDevice();
             }
+            endDialog();
         });
-        tabActivity.setActionBarMyDeviceOnClickListener(new TabFragmentActivity.ActionBarMyDeviceOnClickListener() {
-            @Override
-            public void onMyDeviceFirstBtnClick() {
-                Intent openCameraIntent = new Intent(getActivity(), CaptureActivity.class);
-                startActivityForResult(openCameraIntent, Config.CAMERA_REQUEST_CODE);
-            }
+        tabActivity.setActionBarMyDeviceOnClickListener(() -> {
+            Intent openCameraIntent = new Intent(getActivity(), CaptureActivity.class);
+            startActivityForResult(openCameraIntent, Config.CAMERA_REQUEST_CODE);
         });
-
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == Config.CAMERA_REQUEST_CODE) {
-            Bundle bundle = data.getExtras();
-            String scanResult = bundle.getString("result");
-            Message msg = Message.obtain();
-            msg.what = Config.MESSAGE_WHAT_ADD_DEVICE;
-            msg.obj = scanResult;
-            handler.sendMessage(msg);
-        }
     }
 
     private void requestAllDevice() {
@@ -239,7 +203,7 @@ public class MyDeviceFragment extends BaseFragment {
                     final List<Socket> socketList = new Gson().fromJson(result, new TypeToken<List<Socket>>() {
                     }.getType());
                     if (!TextUtils.isEmpty(result) && socketList != null) {
-                        ToastUtils.showToast(getActivity(), "刷新成功", Toast.LENGTH_LONG);
+                        ToastUtils.showToast(getActivity(), "列表已更新", Toast.LENGTH_LONG);
                         sockets_list = new ArrayList<>();
                         sockets_list = socketList;
                         adapter.setData(sockets_list);
@@ -250,7 +214,7 @@ public class MyDeviceFragment extends BaseFragment {
                         endDialog();
                     }
                 } catch (Exception e) {
-                    responseError();
+                    responseError(e);
                 }
             }
 
@@ -292,7 +256,7 @@ public class MyDeviceFragment extends BaseFragment {
                         }
                     }
                 } catch (Exception e) {
-                    responseError();
+                    responseError(e);
                 }
 
             }
@@ -325,7 +289,7 @@ public class MyDeviceFragment extends BaseFragment {
                         }
                     }
                 } catch (Exception e) {
-                    responseError();
+                    responseError(e);
                 }
             }
 
@@ -363,7 +327,7 @@ public class MyDeviceFragment extends BaseFragment {
                         endDialog();
                     }
                 } catch (Exception e) {
-                    responseError();
+                    responseError(e);
                 }
             }
 
@@ -378,13 +342,13 @@ public class MyDeviceFragment extends BaseFragment {
         });
     }
 
-    private void responseError() {
+    private void responseError(Exception e) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Notice");
         if (!NetAvailable.isNetworkAvailable()) {
-            builder.setMessage("操作失效，\n 无法访问网络");
+            builder.setMessage("操作失效，\n 无法访问网络" + e);
         } else {
-            builder.setMessage("操作失效，\n 网络请求返回数据格式有误！");
+            builder.setMessage("操作失效，\n 网络请求返回数据格式有误！" + e);
         }
         builder.setPositiveButton("确定", null);
         builder.create().show();
@@ -411,7 +375,6 @@ public class MyDeviceFragment extends BaseFragment {
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
-
     }
 
     @Override

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yjtse.lamp">
 
-    <!--网络和存储读取权限-->
+    <!-- 网络和存储读取权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -57,10 +57,10 @@
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.LoginActivity"
             android:launchMode="singleTask"
@@ -80,7 +80,9 @@
         <activity
             android:name=".ui.ReplacePasswordActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".ui.TimerActivity"
+            android:screenOrientation="portrait" />
 
         <!-- 二维码相关activity注册 -->
         <activity
@@ -211,6 +213,7 @@
             android:label="@string/menu_help"
             android:screenOrientation="user"
             android:stateNotNeeded="true" />
+        <activity android:name=".ui.TimerSettingActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/timer_background">
+
+    <TimePicker
+        android:id="@+id/timer_setting_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <View
+        android:id="@+id/timer_setting_divide_line1"
+        android:layout_width="wrap_content"
+        android:layout_height="1dip"
+        android:layout_below="@+id/timer_setting_picker"
+        android:layout_marginTop="10dp"
+        android:background="#005cb9" />
+
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linear_layout1"
+        android:layout_below="@id/timer_setting_divide_line1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+
+            <View
+                android:id="@+id/timer_setting_divide_line2"
+                android:layout_width="wrap_content"
+                android:layout_height="1dip"
+                android:layout_above="@+id/timer_status_tobe_cb"
+                android:background="#005cb9" />
+
+            <CheckBox
+                android:id="@+id/timer_status_tobe_cb"
+                style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                android:paddingLeft="25dp"
+                android:paddingTop="20dp"
+                android:text="@string/radioButton_status_tobe" />
+
+            <View
+                android:id="@+id/timer_setting_divide_line3"
+                android:layout_width="wrap_content"
+                android:layout_height="1dip"
+                android:layout_below="@+id/timer_status_tobe_cb"
+                android:background="#005cb9" />
+
+            <CheckBox
+                android:id="@+id/timer_frequence_cb"
+                style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/timer_status_tobe_cb"
+                android:paddingBottom="20dp"
+                android:paddingLeft="25dp"
+                android:paddingTop="20dp"
+                android:text="@string/radioButton_frequence" />
+
+            <View
+                android:id="@+id/timer_setting_divide_line4"
+                android:layout_width="wrap_content"
+                android:layout_height="1dip"
+                android:layout_below="@+id/timer_frequence_cb"
+                android:background="#005cb9" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linear_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/timer_setting_btn_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/ripple_btn_bg"
+            android:text="取消" />
+
+        <Button
+            android:id="@+id/timer_setting_btn_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/ripple_btn_bg"
+            android:text="确认" />
+    </LinearLayout>
+</RelativeLayout>

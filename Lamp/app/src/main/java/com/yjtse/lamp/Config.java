@@ -19,8 +19,8 @@ public class Config {
     /**
      * 服务器的路径
      */
-//    public static final String SERVER_URL = "http://60.205.219.43/lamp";//服务器路径http://icloud.ticachina.com
-        public static final String SERVER_URL = "http://192.168.191.1";//服务器路径http://icloud.ticachina.com
+    public static final String SERVER_URL = "http://60.205.219.43/lamp";//服务器路径http://icloud.ticachina.com
+//    public static final String SERVER_URL = "http://192.168.191.1";//服务器路径http://icloud.ticachina.com
 
     public static final String KEY_REMEMBER_PWD = "remember_password";
     //请求参数键
@@ -72,9 +72,21 @@ public class Config {
      */
     public static final int MESSAGE_WHAT_UPDATE_DEVICE_STATUS = 109;
     /**
-     * 定时设备状态信息
+     * 启用停用timer message
      */
-    public static final int MESSAGE_WHAT_UPDATE_DEVICE_TIMING = 110;
+    public static final int MESSAGE_WHAT_UPDATE_TIMER_AVAILABLE = 110;
+    /**
+     * 更新定时设置状态信息
+     */
+    public static final int MESSAGE_WHAT_UPDATE_TIMER = 120;
+    /**
+     * 定时添加状态信息
+     */
+    public static final int MESSAGE_WHAT_ADD_TIMER = 130;
+    /**
+     * 定时删除状态信息
+     */
+    public static final int MESSAGE_WHAT_DELETE_TIMER = 140;
     /**
      * 查找用户已经存在
      */
@@ -163,7 +175,27 @@ public class Config {
      * (value = "socketId") String socketId,
      * (value = "ownerId") String ownerId) {
      */
-    public static final String ACTION_DEVICE_TIMING = "socket/updateCron";
+//    public static final String ACTION_DEVICE_TIMING = "socket/updateCron";
+    public static final String ACTION_CRON_GET_ALL_BY_SOCKET_ID = "cron/queryBySocketId";
+
+    public static final String ACTION_CRON_GET_ALL_BY_ID = "cron/query";
+
+    public static final String ACTION_CRON_GET_ALL_BY_OWNER_ID = "cron/queryAllByOwnerId";
+
+    /**
+     * (value = "socketId") String socketId,
+     * (value = "ownerId") String ownerId,
+     * (value = "cron") String cron,
+     * (value = "statusTobe") String statusTobe)
+     */
+    public static final String ACTION_CRON_ADD = "cron/addCron";
+    public static final String ACTION_CRON_UPDATE = "cron/update";
+
+    public static final String ACTION_CRON_DELETE_BY_ID = "cron/delete";
+    public static final String ACTION_CRON_DELETE_BY_OWNER_ID = "cron/deleteByOwnerId";
+    public static final String ACTION_CRON_DELETE_BY_SOCKET_ID = "cron/deleteBySocketId";
+
+
     public static File DEBUG_FILE = null;
 
     public static void writeToDebug(String msg) {

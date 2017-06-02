@@ -1,0 +1,84 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp">
+
+        <TextView
+            android:id="@+id/item_timer_trigger_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="."
+            android:textColor="@color/theme_color"
+            android:textSize="10sp" />
+
+        <View
+            android:id="@+id/timer_item_devide_line"
+            android:layout_width="wrap_content"
+            android:layout_height="1dip"
+            android:layout_below="@+id/timer_frequence_radio_button"
+            android:background="#005cb9" />
+
+        <TextView
+            android:id="@+id/timer_text_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/timer_checkbox"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="25dp"
+            android:background="@drawable/tv_border"
+            android:paddingBottom="5dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="5dp"
+            android:text="@string/timer_time_text"
+            android:textColor="@color/theme_color"
+            android:textSize="22sp" />
+
+        <CheckBox
+            android:id="@+id/timer_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/selector_speed_borrow_select_day"
+            android:textColor="@drawable/selector_select_day" />
+
+        <RadioButton
+            android:id="@+id/timer_status_tobe_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/selector_speed_borrow_select_day"
+            android:checked="true"
+            android:clickable="false"
+            android:paddingRight="8dp"
+            android:text="@string/radioButton_status_tobe"
+            android:textColor="@drawable/selector_select_day" />
+
+        <RadioButton
+            android:id="@+id/timer_frequence_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/timer_status_tobe_radio_button"
+            android:layout_alignStart="@+id/timer_status_tobe_radio_button"
+            android:layout_below="@+id/timer_status_tobe_radio_button"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/selector_speed_borrow_select_day"
+            android:checked="true"
+            android:clickable="false"
+            android:paddingRight="8dp"
+            android:text="@string/radioButton_frequence"
+            android:textColor="@drawable/selector_select_day" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

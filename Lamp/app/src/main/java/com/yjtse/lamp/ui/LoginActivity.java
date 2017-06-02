@@ -137,14 +137,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         et_login_input_number.addTextChangedListener(new EditTextTextWatcher());
         et_login_input_password.addTextChangedListener(new EditTextTextWatcher());
 
-        remenber_password.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-                if (checked) { //选中
-                    isRememberPassword = true;
-                } else {  //未选中
-                    isRememberPassword = false;
-                }
+        remenber_password.setOnCheckedChangeListener((compoundButton, checked) -> {
+            if (checked) { //选中
+                isRememberPassword = true;
+            } else {  //未选中
+                isRememberPassword = false;
             }
         });
     }
@@ -249,6 +246,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             @Override
             public void onMyFailure(int statusCode, Header[] header, String result, Throwable th) {
                 endDialog();
+                hint_string.setText("链接服务器失败，请稍后再试");
             }
         });
 

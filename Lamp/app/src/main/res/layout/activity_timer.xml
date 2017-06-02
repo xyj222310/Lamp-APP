@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/timer_background">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_below="@+id/hint_timer_string"
+        android:background="@color/theme_color"
+        />
+    <TextView
+        android:id="@+id/hint_timer_string"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="@string/tv_timer_title"
+        android:textColor="#5261ae"
+        android:textSize="25sp" />
+
+    <com.yjtse.lamp.widgets.MyListView
+        android:id="@+id/timer_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_layout"
+        android:layout_below="@+id/hint_timer_string" />
+    <!--</LinearLayout>-->
+
+    <RelativeLayout
+        android:id="@+id/button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/timer_btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tv_border"
+            android:drawableTop="@android:drawable/ic_menu_add"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="添加"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/timer_btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@id/timer_btn_add"
+            android:background="@drawable/tv_border"
+            android:drawableTop="@android:drawable/ic_menu_edit"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="删除"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/timer_btn_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@id/timer_btn_delete"
+            android:background="@drawable/tv_border"
+            android:drawableTop="@android:drawable/ic_menu_more"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="更多"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+</RelativeLayout>

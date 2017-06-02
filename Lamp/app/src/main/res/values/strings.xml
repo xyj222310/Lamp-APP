@@ -32,8 +32,13 @@
     <string name="passwordMustBeSame">密码不相同</string>
     <string name="networkFail">网络请求失败，请稍后再试</string>
     <string name="versionStr">demo&#160;&#160;v1.0</string>
-    <string name="online">●在线</string>
-    <string name="offline">●离线</string>
+    <string name="online">online</string>
+    <string name="offline">offline</string>
+
+    <string name="radioButton_status_tobe">届时关闭</string>
+    <string name="radioButton_available">启用</string>
+    <string name="radioButton_frequence">不重复</string>
+    <string name="timer_time_text">00:00</string>
 
 
     <string name="app_picker_name">Applications</string>
@@ -163,4 +168,10 @@
 
 
     <string name="tv_function_not_finish">此功能尚未开发</string>
+    <string name="tv_timer_title">enjoy ur life</string>
+    <string name="tv_timer_item_hint">..</string>
+
+    <string name="title_activity_timer">TimerActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
