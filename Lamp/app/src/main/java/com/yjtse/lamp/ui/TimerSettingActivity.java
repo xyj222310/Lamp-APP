@@ -294,8 +294,12 @@ public class TimerSettingActivity extends Activity implements View.OnClickListen
         Calendar calendar = Calendar.getInstance();
         time_picker.setIs24HourView(true);
         String second = "00 ";
-        String minute = String.valueOf(time_picker.getCurrentMinute()) + " ";
-        String hour = String.valueOf(time_picker.getCurrentHour()) + " ";
+        String minute = (time_picker.getCurrentMinute() < 10
+                ? "0" + time_picker.getCurrentMinute()
+                : time_picker.getCurrentMinute()) + " ";
+        String hour = (time_picker.getCurrentHour() < 10
+                ? "0" + time_picker.getCurrentHour()
+                : time_picker.getCurrentHour()) + " ";
         String day = "";
         String month = "";
         String week = "?" + " ";
