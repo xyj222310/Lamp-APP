@@ -154,12 +154,12 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
                         return;
                     }
                     startDialog("注册中");
-//                    verify(phoneNumber2, userPass2, identifying_code);
-                    RequestParams params = new RequestParams();
-                    params.add(Config.KEY_USERNAME, phoneNumber2);
-                    params.add("phone", phoneNumber2);
-                    params.add(Config.KEY_PASSWORD, userPass2);
-                    requestRegister(params, phoneNumber2, userPass2);
+                    verify(phoneNumber2, userPass2, identifying_code);
+//                    RequestParams params = new RequestParams();
+//                    params.add(Config.KEY_USERNAME, phoneNumber2);
+//                    params.add("phone", phoneNumber2);
+//                    params.add(Config.KEY_PASSWORD, userPass2);
+//                    requestRegister(params, phoneNumber2, userPass2);
                 } else {
                     if (TextUtils.isEmpty(userId2)) {
                         hint_regist_string.setText("请设置登录名");
