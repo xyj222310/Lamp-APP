@@ -146,6 +146,7 @@ public class TimerAdapter extends BaseAdapter {
                             && Integer.valueOf(minute) > calendar.get(Calendar.MINUTE)
                             && Integer.valueOf(minute) - calendar.get(Calendar.MINUTE) < 2) {
                         ToastUtils.showToast(v.getContext(), "请至少设置在2分钟之后" + hour + ":" + minute, Toast.LENGTH_LONG);
+                        checkBox.setChecked(!checkBox.isChecked());
                         params = null;
                     } else {
                         params.put("cron", second2 + minute2 + hour2 + day2 + month2 + week2 + year2);

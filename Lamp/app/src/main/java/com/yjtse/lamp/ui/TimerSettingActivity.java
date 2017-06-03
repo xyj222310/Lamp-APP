@@ -325,17 +325,17 @@ public class TimerSettingActivity extends Activity implements View.OnClickListen
                     day = calendar.get(Calendar.DAY_OF_MONTH) + 1 + " ";//明天
                 }
             }
-            if (time_picker.getCurrentHour() == calendar.getTime().getHours()
-                    && time_picker.getCurrentMinute() > calendar.get(Calendar.MINUTE)
-                    && time_picker.getCurrentMinute() - calendar.get(Calendar.MINUTE) < 2) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(TimerSettingActivity.this);
-                builder.setTitle("Notice");
-                builder.setMessage("请至少设置在2分钟之后");
-                builder.setPositiveButton("确定", null);
-                builder.create().show();
-                time_picker.setIs24HourView(false);
-                return null;
-            }
+        }
+        if (time_picker.getCurrentHour() == calendar.getTime().getHours()
+                && time_picker.getCurrentMinute() > calendar.get(Calendar.MINUTE)
+                && time_picker.getCurrentMinute() - calendar.get(Calendar.MINUTE) < 2) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(TimerSettingActivity.this);
+            builder.setTitle("Notice");
+            builder.setMessage("请至少设置在2分钟之后");
+            builder.setPositiveButton("确定", null);
+            builder.create().show();
+            time_picker.setIs24HourView(false);
+            return null;
         }
         time_picker.setIs24HourView(false);
         params.add("cron", second + minute + hour + day + month + week + year);
