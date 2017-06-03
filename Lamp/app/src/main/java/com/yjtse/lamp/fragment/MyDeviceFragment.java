@@ -157,6 +157,7 @@ public class MyDeviceFragment extends BaseFragment {
 
         /**
          * 长按删除监听事件
+         *          @return true if the callback consumed the long click, false otherwise
          */
         fm_device_message_list.setOnItemLongClickListener((parent, view, position, id) -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -170,7 +171,7 @@ public class MyDeviceFragment extends BaseFragment {
             });
             builder.setNegativeButton("no", null);
             builder.create().show();
-            return false;
+            return true;
         });
 
         fm_device_message_list.setOnRefreshListener(() -> {

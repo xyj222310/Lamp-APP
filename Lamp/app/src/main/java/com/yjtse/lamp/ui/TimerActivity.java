@@ -177,6 +177,7 @@ public class TimerActivity extends Activity implements View.OnClickListener, Ada
 
         /**
          * 长按删除监听事件
+         @return true if the callback consumed the long click, false otherwise
          */
         timer_list.setOnItemLongClickListener((parent, view, position, id) -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(TimerActivity.this);
@@ -190,7 +191,7 @@ public class TimerActivity extends Activity implements View.OnClickListener, Ada
             });
             builder.setNegativeButton("no", null);
             builder.create().show();
-            return false;
+            return true;
         });
         /*
         加载数据
