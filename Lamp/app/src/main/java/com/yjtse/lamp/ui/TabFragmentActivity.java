@@ -75,11 +75,6 @@ public class TabFragmentActivity extends FragmentActivity implements ViewPager.O
                         actionBarMyDeviceOnClickListener.onMyDeviceFirstBtnClick();
                     }
                 }
-                if (actionBarSettingOnClickListener != null) {
-                    if (actionBar.getFirstBtnID() == R.drawable.multiply_choice) {
-                        actionBarSettingOnClickListener.onMySettingFirstBtnClick();
-                    }
-                }
             }
 
             @Override
@@ -112,7 +107,7 @@ public class TabFragmentActivity extends FragmentActivity implements ViewPager.O
                 fm_below_setting.setSelected(true);
                 fm_below_self_center.setSelected(false);
                 actionBar.setTitle("动态");
-                actionBar.setFirstBtnID(R.drawable.multiply_choice);//默认无显示
+                actionBar.setFirstBtnID(0);//默认无显示
                 actionBar.setCustomActionBar();//显示视图以及actionbar的属性
                 break;
             case 2:

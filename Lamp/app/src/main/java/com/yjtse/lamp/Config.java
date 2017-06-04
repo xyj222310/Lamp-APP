@@ -22,6 +22,14 @@ public class Config {
     public static final String SERVER_URL = "http://60.205.219.43/lamp";//服务器路径http://icloud.ticachina.com
 //    public static final String SERVER_URL = "http://192.168.191.1";//服务器路径http://icloud.ticachina.com
 
+    /**
+     * 新闻API请求地址
+     */
+    public static final String JUHE_API_URL = "http://v.juhe.cn/toutiao/index";
+
+    public static final String MOB_SEARCH_API_URL = "http://apicloud.mob.com/wx/article/search";
+
+    public static final String MOB_CATEGORY_API_URL = "http://apicloud.mob.com/wx/article/category/query";
     public static final String KEY_REMEMBER_PWD = "remember_password";
     //请求参数键
     public static final String KEY_USERNAME = "userId";
@@ -111,6 +119,12 @@ public class Config {
      * 登录失败
      */
     public static final int MESSAGE_WHAT_HTTP_LOGIN_FAIL = 108;
+
+    /**
+     * news message
+     */
+    public static final int MESSAGE_WHAT_SET_NEWS = 150;
+    public static final int MESSAGE_WHAT_SET_NEWS_ICON = 150;
 
     /**
      * 添加设备action
@@ -234,4 +248,32 @@ public class Config {
         return SERVER_URL + "/" + action;//得到服务器路径加上请求的动作
     }
 
+    /**
+     * 聚合数据action GET
+     */
+    public static final String PARAMS_KEY = "994570983717d6f5056aaa8651ddc36a";
+    //    public static final String PARAMS_TOP = "top";
+    public static final String PARAMS_KEJI = "keji";
+    public static final String PARAMS_SHEHUI = "shehui";
+    public static final String PARAMS_GUONEI = "guonei";
+    public static final String PARAMS_GUOJI = "guoji";
+    public static final String PARAMS_YULE = "yule";
+    public static final String PARAMS_TIYU = "tiyu";
+    public static final String PARAMS_JUNSHI = "junshi";
+    public static final String PARAMS_CAIJING = "caijing";
+    public static final String PARAMS_SHISHANG = "shishang";
+
+    public static final String MOB_APP_KEY = "1e63cc4e67993";
+
+    public static String getJuheApiUrl() {
+        return JUHE_API_URL;//得到服务器路径加上请求的动作
+    }
+
+    public static String getMobSearchApiUrl() {
+        return MOB_SEARCH_API_URL;//得到服务器路径加上请求的动作
+    }
+
+    public static String getMobCategoryApiUrl() {
+        return MOB_CATEGORY_API_URL;//得到服务器路径加上请求的动作
+    }
 }

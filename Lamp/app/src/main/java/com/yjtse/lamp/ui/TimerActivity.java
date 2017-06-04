@@ -204,10 +204,10 @@ public class TimerActivity extends Activity implements View.OnClickListener, Ada
         }
         if (!NetAvailable.isConnect(this)) {
             ToastUtils.showToast(this, "请检查网络链接", Toast.LENGTH_LONG);
+            endDialog();
         } else {
             requestAllTimer();
         }
-        endDialog();
     }
 
     private void requestUpdateTimer(String url, RequestParams params) {

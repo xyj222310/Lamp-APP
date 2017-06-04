@@ -93,7 +93,7 @@ public class DeviceAdapter extends BaseAdapter {
         finalASwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             HashMap<String, String> params = new HashMap<>();
 //                Socket socket = new Socket();
-            if (!"-1".equals(data.get(position).getAvailable())) {
+            if ("1".equals(data.get(position).getAvailable())) {
                 if (!NetAvailable.isNetworkAvailable()) {
                     finalASwitch.setChecked(false);
                     ToastUtils.showToast(context, "网络连不上鸟！！！！！", Toast.LENGTH_LONG);

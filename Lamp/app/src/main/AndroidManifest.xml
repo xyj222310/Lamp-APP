@@ -47,6 +47,7 @@
 
     <application
         android:allowBackup="true"
+        android:name=".Application"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
@@ -213,7 +214,8 @@
             android:label="@string/menu_help"
             android:screenOrientation="user"
             android:stateNotNeeded="true" />
-        <activity android:name=".ui.TimerSettingActivity"></activity>
+        <activity android:name=".ui.TimerSettingActivity" />
+        <activity android:name=".ui.NewsActivity"/>
     </application>
 
 </manifest>

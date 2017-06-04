@@ -1,29 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.yjtse.lamp.widgets.MyListView
-        android:id="@+id/fm_article_message_list"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_essence"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <!--<Button-->
-    <!--android:id="@+id/fm_device_message_multiply_setting"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:layout_marginLeft="80dp"-->
-    <!--android:layout_marginRight="80dp"-->
-    <!--android:background="@drawable/login_bg"-->
-    <!--android:text="统一设置"-->
-    <!--android:visibility="gone"-->
-    <!--android:textColor="#ffffff"-->
-    <!--android:layout_marginBottom="30dp"-->
-    <!--android:textSize="20sp" />-->
+        android:layout_height="40dp"
+        android:background="@color/essence_tab_bg"
+        app:tabMode="scrollable"
+        app:tabGravity="fill"
+        app:tabSelectedTextColor="@color/essence_tab_text_color_press"
+        app:tabTextColor="@color/essence_tab_text_color_normal"
+        app:tabIndicatorColor="@color/essence_tab_text_color_press"/>
 
 
-</RelativeLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_essence"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-
+</LinearLayout>

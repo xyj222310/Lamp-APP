@@ -38,6 +38,8 @@ import org.apache.http.Header;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+
 public class MyDeviceFragment extends BaseFragment {
 
     public static List<Socket> sockets_list;
@@ -118,10 +120,10 @@ public class MyDeviceFragment extends BaseFragment {
         }
         if (!NetAvailable.isConnect(getActivity())) {
             ToastUtils.showToast(getActivity(), "请检查网络链接", Toast.LENGTH_LONG);
+            endDialog();
         } else {
             requestAllDevice();
         }
-        endDialog();
         return view;
     }
 
@@ -176,13 +178,13 @@ public class MyDeviceFragment extends BaseFragment {
 
         fm_device_message_list.setOnRefreshListener(() -> {
             isRefreshing = true;
-//                startDialog("加载中");
+            startDialog("加载中");
             if (!NetAvailable.isNetworkAvailable()) {
                 ToastUtils.showToast(getActivity(), "请检查网络链接", Toast.LENGTH_LONG);
+                endDialog();
             } else {
                 requestAllDevice();
             }
-            endDialog();
         });
         tabActivity.setActionBarMyDeviceOnClickListener(() -> {
             Intent openCameraIntent = new Intent(getActivity(), CaptureActivity.class);
@@ -264,7 +266,9 @@ public class MyDeviceFragment extends BaseFragment {
 
             @Override
             public void onMyFailure(int statusCode, Header[] header, String result, Throwable th) {
+                endDialog();
                 ToastUtils.showToast(getActivity(), "添加失败，请检查设备是否已经被注册？", Toast.LENGTH_LONG);
+
             }
         });
     }
@@ -365,6 +369,19 @@ public class MyDeviceFragment extends BaseFragment {
         if (dialog != null && !dialog.isShowing()) {
             message.setText(msg);
             dialog.show();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 0) {
+            Bundle bundle = data.getExtras();
+            String scanResult = bundle.getString("result");
+            Message message = new Message();
+            message.obj = scanResult;
+            message.what = Config.MESSAGE_WHAT_ADD_DEVICE;
+            handler.sendMessage(message);
         }
     }
 

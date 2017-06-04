@@ -10,7 +10,7 @@ public class BaseFragment extends Fragment {
     /**
      * 当前界面是否呈现给用户的状态标志
      */
-    protected boolean isVisible;
+    protected boolean isVisible=false;
 
     /**
      * 重写Fragment父类生命周期方法，在onCreate之前调用该方法，实现Fragment数据的缓加载.
@@ -20,7 +20,7 @@ public class BaseFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (getUserVisibleHint()) {
+        if (getUserVisibleHint() && isVisible) {
             isVisible = true;
             onVisible();
         } else {
