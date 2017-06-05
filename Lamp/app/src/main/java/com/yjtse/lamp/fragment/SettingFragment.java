@@ -31,7 +31,6 @@ import org.apache.http.Header;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.support.v7.widget.StaggeredGridLayoutManager.TAG;
 
 public class SettingFragment extends BaseFragment implements ViewPager.OnPageChangeListener {
     /**
@@ -109,7 +108,6 @@ public class SettingFragment extends BaseFragment implements ViewPager.OnPageCha
                             && "success".equals(wxCategoryResult.getMsg())) {
                         resultBeanList = new ArrayList<>();
                         resultBeanList = wxCategoryResult.getResult();
-                        Log.i(TAG, "onMySuccess: " + resultBeanList.toString());
                         SetAdapter();
                         endDialog();
                     }

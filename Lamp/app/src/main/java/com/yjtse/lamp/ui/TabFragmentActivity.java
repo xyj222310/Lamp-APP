@@ -13,6 +13,7 @@ import com.yjtse.lamp.fragment.MyDeviceFragment;
 import com.yjtse.lamp.fragment.SelfCenterFragment;
 import com.yjtse.lamp.fragment.SettingFragment;
 import com.yjtse.lamp.widgets.CenterTitleActionBar;
+import com.yjtse.lamp.widgets.MyListView;
 
 import java.util.ArrayList;
 import java.util.List;

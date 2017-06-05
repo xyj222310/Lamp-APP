@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -152,62 +153,81 @@ public class TimerActivity extends Activity implements View.OnClickListener, Ada
         /*
         监听事件
          */
-        timer_list.setOnRefreshListener(() -> {
-            isRefreshing = true;
-            if (!NetAvailable.isNetworkAvailable()) {
-                ToastUtils.showToast(getApplicationContext(), "请检查网络链接", Toast.LENGTH_LONG);
-            } else {
-                requestAllTimer();
+        timer_list.setOnRefreshListener(new MyListView.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                isRefreshing = true;
+                if (!NetAvailable.isNetworkAvailable()) {
+                    ToastUtils.showToast(getApplicationContext(), "请检查网络链接", Toast.LENGTH_LONG);
+                } else {
+                    requestAllTimer();
+                }
+                endDialog();
             }
-            endDialog();
         });
         btn_add_timer.setOnClickListener(this);
         btn_delete_timer.setOnClickListener(this);
         btn_more_timer.setOnClickListener(this);
-        timer_list.setOnItemClickListener((parent, view, position, id) -> {
-            Intent intent = new Intent(this, TimerSettingActivity.class);
-            intent.putExtra("id", cron_list.get(position - 1).getId());
-            intent.putExtra("socketId", socketIdFromDeviceFm);
-            intent.putExtra("statusTobe", cron_list.get(position - 1).getStatusTobe());
-            intent.putExtra("cron", cron_list.get(position - 1).getCron());
-            intent.putExtra("available", cron_list.get(position - 1).getAvailable());
-            intent.putExtra("flag", Config.MESSAGE_WHAT_UPDATE_TIMER);
-            startActivity(intent);
+        timer_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(TimerActivity.this, TimerSettingActivity.class);
+                intent.putExtra("id", cron_list.get(position - 1).getId());
+                intent.putExtra("socketId", socketIdFromDeviceFm);
+                intent.putExtra("statusTobe", cron_list.get(position - 1).getStatusTobe());
+                intent.putExtra("cron", cron_list.get(position - 1).getCron());
+                intent.putExtra("available", cron_list.get(position - 1).getAvailable());
+                intent.putExtra("flag", Config.MESSAGE_WHAT_UPDATE_TIMER);
+                startActivity(intent);
+            }
         });
 
         /**
          * 长按删除监听事件
          @return true if the callback consumed the long click, false otherwise
          */
-        timer_list.setOnItemLongClickListener((parent, view, position, id) -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(TimerActivity.this);
-            builder.setTitle("Notice");
-            builder.setMessage("确定删除此定时设定？");
-            builder.setPositiveButton("yes", (dialog1, which) -> {
-                Message msg = Message.obtain();
-                msg.arg1 = position;
-                msg.what = Config.MESSAGE_WHAT_DELETE_TIMER;
-                handler.sendMessage(msg);
-            });
-            builder.setNegativeButton("no", null);
-            builder.create().show();
-            return true;
+        timer_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(TimerActivity.this);
+                builder.setTitle("Notice");
+                builder.setMessage("确定删除此定时设定？");
+                builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Message msg = Message.obtain();
+                        msg.arg1 = position;
+                        msg.what = Config.MESSAGE_WHAT_DELETE_TIMER;
+                        handler.sendMessage(msg);
+                    }
+                });
+                builder.setNegativeButton("no", null);
+                builder.create().show();
+                return false;
+            }
         });
         /*
         加载数据
          */
         InjectUtils.injectObject(this, this);
         isPrepared = true;
-        if (isFirstLoading) {
+        if (isFirstLoading)
+
+        {
             isFirstLoading = false;
             startDialog("正在加载.....");
         }
-        if (!NetAvailable.isConnect(this)) {
+        if (!NetAvailable.isConnect(this))
+
+        {
             ToastUtils.showToast(this, "请检查网络链接", Toast.LENGTH_LONG);
             endDialog();
-        } else {
+        } else
+
+        {
             requestAllTimer();
         }
+
     }
 
     private void requestUpdateTimer(String url, RequestParams params) {

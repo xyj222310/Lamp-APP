@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,8 +37,6 @@ import org.apache.http.Header;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.support.v7.widget.StaggeredGridLayoutManager.TAG;
 
 /**
  * Created by janiszhang on 2016/6/6.
@@ -91,8 +90,13 @@ public class ContentFragment extends BaseFragment {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    adapter.setData(news_list);
-                    adapter.notifyDataSetChanged();
+                    System.out.println(news_list.get(0).getCid());
+                    Log.v("TAG", news_list.get(0).getCid());
+//                    adapter = new NewsAdapter(getActivity(), handler, R.layout.item_news);
+//                    adapter.setData(news_list);
+//                    tab_content_list.setAdapter(adapter);
+                    //    adapter.notifyDataSetChanged();
+
             }
         }
     };
@@ -154,31 +158,38 @@ public class ContentFragment extends BaseFragment {
         adapter = new NewsAdapter(getActivity(), handler, R.layout.item_news);
         news_list = new ArrayList<>();
         WxSearchResult.ResultBean.ListBean bean = new WxSearchResult.ResultBean.ListBean();
-        bean.setCid("1");
-        bean.setPubTime("1");
-        bean.setTitle("1");
-        bean.setSourceUrl("1");
-
-        news_list.add(0, bean);
-        news_list.add(1, bean);
-        news_list.add(2, bean);
+//        bean.setCid("1");
+//        bean.setPubTime("1");
+//        bean.setTitle("1");
+//        bean.setSourceUrl("1");
+//
+//        news_list.add(0, bean);
+//        news_list.add(1, bean);
+//        news_list.add(2, bean);
+        requestByCategory("1", "10", type);
         adapter.setData(news_list);
         tab_content_list.setAdapter(adapter);
 
 
-        tab_content_list.setOnRefreshListener(() -> {
-            isRefreshing = true;
-            if (!NetAvailable.isNetworkAvailable()) {
-                ToastUtils.showToast(getActivity(), "请检查网络链接", Toast.LENGTH_LONG);
-            } else {
-//                requestByCategory(getRequestParams());
-                requestByCategory("1", "10", type);
+        tab_content_list.setOnRefreshListener(new MyListView.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                isRefreshing = true;
+                if (!NetAvailable.isNetworkAvailable()) {
+                    ToastUtils.showToast(getActivity(), "请检查网络链接", Toast.LENGTH_LONG);
+                } else {
+                    //    requestByCategory(getRequestParams());
+                    requestByCategory("1", "10", type);
+                }
             }
         });
-        tab_content_list.setOnItemClickListener((parent, view, position, id) -> {
-            Intent intent = new Intent(getActivity(), NewsActivity.class);
-            intent.putExtra("url", news_list.get(position - 1).getSourceUrl());
-            startActivity(intent);
+        tab_content_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), NewsActivity.class);
+                intent.putExtra("url", news_list.get(position - 1).getSourceUrl());
+                startActivity(intent);
+            }
         });
 
     }
@@ -245,7 +256,7 @@ public class ContentFragment extends BaseFragment {
 //                JSONObject object2 = object.getJSONObject("result");
 //                if ("1".equals(object2.get("stat"))) {
 //                    //有数据
-//                    final List<News> list = new Gson().fromJson(object2.getJSONArray("data").toString(), new TypeToken<List<News>>() {
+//                    final List<JuheResult> list = new Gson().fromJson(object2.getJSONArray("data").toString(), new TypeToken<List<JuheResult>>() {
 //                    }.getType());
 //                    news_list = new ArrayList<>();
 //                    news_list = list;
@@ -282,10 +293,10 @@ public class ContentFragment extends BaseFragment {
                             && "success".equals(wxSearchResult.getMsg())) {
 //                        news_list.clear();
                         news_list.addAll(wxSearchResult.getResult().getList());
-                        Message message = new Message();
+                        Message message = Message.obtain();
                         message.what = 0;
                         handler.sendMessage(message);
-                        Log.i(TAG, "onMySuccess: " + news_list.toString());
+                        System.out.println(news_list.toString());
                         endDialog();
                         ToastUtils.showToast(getActivity(), "已更新", Toast.LENGTH_LONG);
                     }

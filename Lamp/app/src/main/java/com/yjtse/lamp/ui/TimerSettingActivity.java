@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -177,13 +178,20 @@ public class TimerSettingActivity extends Activity implements View.OnClickListen
                 : this.getResources().getColor(R.color.gray));
     }
 
-    CheckBox.OnCheckedChangeListener frequenceListener = (buttonView, isChecked) -> {
-        frequence_cb.setText(isChecked ? "每天重复" : "不重复");
-        frequence_cb.setTextColor(isChecked ? this.getResources().getColor(R.color.theme_color) : this.getResources().getColor(R.color.gray));
+    CheckBox.OnCheckedChangeListener frequenceListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+            frequence_cb.setText(isChecked ? "每天重复" : "不重复");
+            frequence_cb.setTextColor(isChecked ? getResources().getColor(R.color.theme_color) : getResources().getColor(R.color.gray));
+        }
     };
-    CheckBox.OnCheckedChangeListener statusTobeListener = (buttonView, isChecked) -> {
-        status_tobe_cb.setText(isChecked ? "已设置为届时打开" : "已设置为届时关闭");
-        status_tobe_cb.setTextColor(isChecked ? this.getResources().getColor(R.color.theme_color) : this.getResources().getColor(R.color.gray));
+    CheckBox.OnCheckedChangeListener statusTobeListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            status_tobe_cb.setText(isChecked ? "已设置为届时打开" : "已设置为届时关闭");
+            status_tobe_cb.setTextColor(isChecked ? getResources().getColor(R.color.theme_color) : getResources().getColor(R.color.gray));
+        }
     };
 
     @Override

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Lamp</string>
+    <string name="app_name">LAMP</string>
 
     <string name="action_settings">Settings</string>
     <string name="inputUserIdStr">输入登录id</string>
@@ -170,16 +170,16 @@
     <string name="tv_function_not_finish">此功能尚未开发</string>
     <string name="tv_timer_title">enjoy ur life</string>
     <string name="tv_timer_item_hint">..</string>
+    <string name="text_lost">资源不见了，请联系程序员哥哥</string>
 
     <string name="title_activity_timer">TimerActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
-
     <array name="home_video_tab">
         <item>科技@dream@0</item>
         <item>体育@dream@1</item>
-        <item>时尚@dream@2</item>
+        <!--<item>时尚@dream@2</item>-->
         <!--<item>娱乐@dream@3</item>-->
         <!--<item>国内@dream@4</item>-->
         <!--<item>国际@dream@5</item>-->

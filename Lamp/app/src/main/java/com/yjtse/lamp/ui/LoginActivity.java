@@ -137,11 +137,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         et_login_input_number.addTextChangedListener(new EditTextTextWatcher());
         et_login_input_password.addTextChangedListener(new EditTextTextWatcher());
 
-        remenber_password.setOnCheckedChangeListener((compoundButton, checked) -> {
-            if (checked) { //选中
-                isRememberPassword = true;
-            } else {  //未选中
-                isRememberPassword = false;
+        remenber_password.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) { //选中
+                    isRememberPassword = true;
+                } else {  //未选中
+                    isRememberPassword = false;
+                }
             }
         });
     }

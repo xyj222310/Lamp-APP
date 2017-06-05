@@ -56,9 +56,7 @@ public class SuggestionBackActivity extends BaseActivity {
         feedback_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String message = et_feedback_content.getText().toString().trim();
-                ToastUtils.showToast(SuggestionBackActivity.this, "back to the back", Toast.LENGTH_LONG);
-                et_feedback_content.setText("");
+                ToastUtils.showToast(getApplicationContext(), "back to the back", Toast.LENGTH_LONG);
                 SuggestionBackActivity.this.finish();
             }
         });

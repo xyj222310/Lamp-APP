@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -90,27 +91,31 @@ public class DeviceAdapter extends BaseAdapter {
         }
 
         final Switch finalASwitch = aSwitch;
-        finalASwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            HashMap<String, String> params = new HashMap<>();
+        finalASwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                HashMap<String, String> params = new HashMap<>();
 //                Socket socket = new Socket();
-            if ("1".equals(data.get(position).getAvailable())) {
-                if (!NetAvailable.isNetworkAvailable()) {
-                    finalASwitch.setChecked(false);
-                    ToastUtils.showToast(context, "网络连不上鸟！！！！！", Toast.LENGTH_LONG);
+                if ("1".equals(data.get(position).getAvailable())) {
+                    if (!NetAvailable.isNetworkAvailable()) {
+                        finalASwitch.setChecked(false);
+                        ToastUtils.showToast(context, "网络连不上鸟！！！！！", Toast.LENGTH_LONG);
+                    } else {
+                        Message msg = Message.obtain();
+                        msg.arg1 = position;
+                        msg.arg2 = isChecked ? 1 : 0;
+                        msg.what = Config.MESSAGE_WHAT_UPDATE_DEVICE_STATUS;
+                        handler.sendMessage(msg);
+                        finalASwitch.setChecked(isChecked);
+                    }
                 } else {
-                    Message msg = Message.obtain();
-                    msg.arg1 = position;
-                    msg.arg2 = isChecked ? 1 : 0;
-                    msg.what = Config.MESSAGE_WHAT_UPDATE_DEVICE_STATUS;
-                    handler.sendMessage(msg);
-                    finalASwitch.setChecked(isChecked);
+                    /**
+                     * 如果设备已经断线了，无论怎么操作都保持关闭状态
+                     */
+                    ToastUtils.showToast(context, "设备已经离线，请检查设备", Toast.LENGTH_LONG);
+                    finalASwitch.setChecked(false);
                 }
-            } else {
-                /**
-                 * 如果设备已经断线了，无论怎么操作都保持关闭状态
-                 */
-                ToastUtils.showToast(context, "设备已经离线，请检查设备", Toast.LENGTH_LONG);
-                finalASwitch.setChecked(false);
             }
         });
 

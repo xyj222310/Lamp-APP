@@ -1,6 +1,7 @@
 package com.yjtse.lamp.fragment;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -80,14 +81,11 @@ public class SelfCenterFragment extends BaseFragment implements OnClickListener 
             user_exit.setText(R.string.selfCenterUserLogin);//为空，说明未登陆，显示登陆
             loginOrExits = false;
         }
-
         user_exit.setOnClickListener(this);
         self_center_user_logo.setOnClickListener(this);
         relieveDeviceLinearLayout.setOnClickListener(this);
         helpCenterLinearLayout.setOnClickListener(this);
         systemVersionLinearLayout.setOnClickListener(this);
-
-
     }
 
     @Override
@@ -112,20 +110,39 @@ public class SelfCenterFragment extends BaseFragment implements OnClickListener 
             case R.id.self_center_user_logo:
                 break;
             case R.id.helpCenterLinearLayout:
-
                 builder.setTitle("联系我");
                 builder.setMessage("xyj222310@163.com\n1568321****\n1021238535@qq.com");
-                builder.setPositiveButton("确定", null);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent1 = new Intent(getActivity(), SuggestionBackActivity.class);
+                        startActivity(intent1);
+                    }
+                });
                 builder.create().show();
                 break;
             case R.id.relieveDeviceLinearLayout:
-                Intent intent1 = new Intent(getActivity(), SuggestionBackActivity.class);
-                startActivity(intent1);
+                builder.setTitle("联系我");
+                builder.setMessage("xyj222310@163.com\n1568321****\n1021238535@qq.com");
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent1 = new Intent(getActivity(), SuggestionBackActivity.class);
+                        startActivity(intent1);
+                    }
+                });
+                builder.create().show();
                 break;
             case R.id.systemVersionLinearLayout:
                 builder.setTitle("联系我");
                 builder.setMessage("xyj222310@163.com\n1568321****\n1021238535@qq.com");
-                builder.setPositiveButton("确定", null);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent1 = new Intent(getActivity(), SuggestionBackActivity.class);
+                        startActivity(intent1);
+                    }
+                });
                 builder.create().show();
                 break;
             default:

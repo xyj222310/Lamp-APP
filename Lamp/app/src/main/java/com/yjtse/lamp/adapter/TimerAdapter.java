@@ -39,10 +39,10 @@ public class TimerAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        RadioButton frequence;
+        final RadioButton frequence;
         TextView textClock;
         RadioButton statusTobe;
-        CheckBox checkBox;
+        final CheckBox checkBox;
         TextView triggerStatus;
 
         if (convertView == null) {
@@ -67,16 +67,16 @@ public class TimerAdapter extends BaseAdapter {
         /*
         获取item数据
          */
-        String cronValue = data.get(position).getCron();
+        final String cronValue = data.get(position).getCron();
 //        if (CronDateUtils.getCronToDate(cronValue) == null) {
         String[] strings = cronValue.split("\\s+");
         String second = strings[0];
-        String minute = strings[1];
-        String hour = strings[2];
+        final String minute = strings[1];
+        final String hour = strings[2];
         String day = strings[3];
-        String month = strings[4];
+        final String month = strings[4];
         String week = strings[5];
-        String year = strings[6];
+        final String year = strings[6];
         /*
         绑定数据
          */
@@ -101,64 +101,67 @@ public class TimerAdapter extends BaseAdapter {
         /*
         监听函数
          */
-        checkBox.setOnClickListener(v -> {
-            if (!NetAvailable.isNetworkAvailable()) {
-                ToastUtils.showToast(context, "网络连不上鸟！！！！！", Toast.LENGTH_LONG);
-                checkBox.setChecked(!checkBox.isChecked());
-            } else {
-                String second2 = "00 ";
-                String minute2 = minute + " ";
-                String hour2 = hour + " ";
-                String day2 = "";
-                String month2 = month + " ";
-                String week2 = "?" + " ";
-                String year2 = year + " ";
-                Calendar calendar = Calendar.getInstance();
-                RequestParams params = new RequestParams();
-                Message msg = Message.obtain();
-                params.put("id", data.get(position).getId());
-                params.put("socketId", data.get(position).getSocketId());
-                params.put("ownerId", data.get(position).getOwnerId());
-                params.put("statusTobe", data.get(position).getStatusTobe());
-                params.put("available", checkBox.isChecked() ? 1 : 0);
-                if (checkBox.isChecked() && !frequence.isChecked()) {
-                    if (Integer.valueOf(hour) < calendar.getTime().getHours()) {
-                        //设定的时间小于当前时间
-                        day2 = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH) + 1) + " ";//明天
-                        ToastUtils.showToast(v.getContext(), "定时将设置在明天" + hour + ":" + minute, Toast.LENGTH_LONG);
-                    }
-                    if (Integer.valueOf(hour) > calendar.getTime().getHours()) {
-                        //设定的时间大于等于当前时间
-                        day2 = calendar.get(Calendar.DAY_OF_MONTH) + " ";//今天
-                        ToastUtils.showToast(v.getContext(), "定时将设置在今天" + hour + ":" + minute, Toast.LENGTH_LONG);
-                    }
-                    if (Integer.valueOf(hour) == calendar.getTime().getHours()) {
-                        if (Integer.valueOf(minute) > calendar.get(Calendar.MINUTE)) {
-                            //设定的分钟时间大于当前分钟
-                            day2 = calendar.get(Calendar.DAY_OF_MONTH) + " ";//今天
-                            ToastUtils.showToast(v.getContext(), "定时将设置在今天" + hour + ":" + minute, Toast.LENGTH_LONG);
-                        } else {
-                            day2 = calendar.get(Calendar.DAY_OF_MONTH) + 1 + " ";//明天
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!NetAvailable.isNetworkAvailable()) {
+                    ToastUtils.showToast(context, "网络连不上鸟！！！！！", Toast.LENGTH_LONG);
+                    checkBox.setChecked(!checkBox.isChecked());
+                } else {
+                    String second2 = "00 ";
+                    String minute2 = minute + " ";
+                    String hour2 = hour + " ";
+                    String day2 = "";
+                    String month2 = month + " ";
+                    String week2 = "?" + " ";
+                    String year2 = year + " ";
+                    Calendar calendar = Calendar.getInstance();
+                    RequestParams params = new RequestParams();
+                    Message msg = Message.obtain();
+                    params.put("id", data.get(position).getId());
+                    params.put("socketId", data.get(position).getSocketId());
+                    params.put("ownerId", data.get(position).getOwnerId());
+                    params.put("statusTobe", data.get(position).getStatusTobe());
+                    params.put("available", checkBox.isChecked() ? 1 : 0);
+                    if (checkBox.isChecked() && !frequence.isChecked()) {
+                        if (Integer.valueOf(hour) < calendar.getTime().getHours()) {
+                            //设定的时间小于当前时间
+                            day2 = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH) + 1) + " ";//明天
                             ToastUtils.showToast(v.getContext(), "定时将设置在明天" + hour + ":" + minute, Toast.LENGTH_LONG);
                         }
-                    }
-                    if (Integer.valueOf(hour) == calendar.getTime().getHours()
-                            && Integer.valueOf(minute) > calendar.get(Calendar.MINUTE)
-                            && Integer.valueOf(minute) - calendar.get(Calendar.MINUTE) < 2) {
-                        ToastUtils.showToast(v.getContext(), "请至少设置在2分钟之后" + hour + ":" + minute, Toast.LENGTH_LONG);
-                        checkBox.setChecked(!checkBox.isChecked());
-                        params = null;
+                        if (Integer.valueOf(hour) > calendar.getTime().getHours()) {
+                            //设定的时间大于等于当前时间
+                            day2 = calendar.get(Calendar.DAY_OF_MONTH) + " ";//今天
+                            ToastUtils.showToast(v.getContext(), "定时将设置在今天" + hour + ":" + minute, Toast.LENGTH_LONG);
+                        }
+                        if (Integer.valueOf(hour) == calendar.getTime().getHours()) {
+                            if (Integer.valueOf(minute) > calendar.get(Calendar.MINUTE)) {
+                                //设定的分钟时间大于当前分钟
+                                day2 = calendar.get(Calendar.DAY_OF_MONTH) + " ";//今天
+                                ToastUtils.showToast(v.getContext(), "定时将设置在今天" + hour + ":" + minute, Toast.LENGTH_LONG);
+                            } else {
+                                day2 = calendar.get(Calendar.DAY_OF_MONTH) + 1 + " ";//明天
+                                ToastUtils.showToast(v.getContext(), "定时将设置在明天" + hour + ":" + minute, Toast.LENGTH_LONG);
+                            }
+                        }
+                        if (Integer.valueOf(hour) == calendar.getTime().getHours()
+                                && Integer.valueOf(minute) > calendar.get(Calendar.MINUTE)
+                                && Integer.valueOf(minute) - calendar.get(Calendar.MINUTE) < 2) {
+                            ToastUtils.showToast(v.getContext(), "请至少设置在2分钟之后" + hour + ":" + minute, Toast.LENGTH_LONG);
+                            checkBox.setChecked(!checkBox.isChecked());
+                            params = null;
+                        } else {
+                            params.put("cron", second2 + minute2 + hour2 + day2 + month2 + week2 + year2);
+                        }
                     } else {
-                        params.put("cron", second2 + minute2 + hour2 + day2 + month2 + week2 + year2);
+                        params.put("cron", cronValue);
                     }
-                } else {
-                    params.put("cron", cronValue);
-                }
 //                msg.arg1 = position;
 //                msg.arg2 = checkBox.isChecked() ? 1 : 0;
-                msg.obj = params;
-                msg.what = Config.MESSAGE_WHAT_UPDATE_TIMER_AVAILABLE;
-                handler.sendMessage(msg);
+                    msg.obj = params;
+                    msg.what = Config.MESSAGE_WHAT_UPDATE_TIMER_AVAILABLE;
+                    handler.sendMessage(msg);
+                }
             }
         });
         return convertView;

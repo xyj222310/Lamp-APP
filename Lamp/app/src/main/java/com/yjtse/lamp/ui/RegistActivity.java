@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -31,13 +30,10 @@ import com.yjtse.lamp.widgets.CenterTitleActionBar;
 
 import org.apache.http.Header;
 
-import java.lang.reflect.TypeVariable;
-
-import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobSMS;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.RequestSMSCodeListener;
-import cn.bmob.v3.listener.VerifySMSCodeListener;
+import cn.bmob.sms.BmobSMS;
+import cn.bmob.sms.exception.BmobException;
+import cn.bmob.sms.listener.RequestSMSCodeListener;
+import cn.bmob.sms.listener.VerifySMSCodeListener;
 
 
 public class RegistActivity extends BaseActivity implements OnClickListener {
@@ -85,7 +81,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
                 RegistActivity.this.finish();
             }
         });
-        initBmob();
+//        initBmob();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Alert");
         builder.setMessage("您可以\n1.不设置手机号\n2.设置手机号作为登录名");
@@ -257,15 +253,15 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
                     }.start();
                 } else {
                     tv_get_identifying_code.setClickable(true);
-                    hint_regist_string.setText("验证码发送失败"+e);
+                    hint_regist_string.setText("验证码发送失败" + e);
                 }
             }
         });
     }
 
-    public void initBmob() {
-        Bmob.initialize(this, Config.BmobSMSToken);//初始化SDK
-    }
+//    public void initBmob() {
+//        Bmob.initialize(this, Config.BmobSMSToken);//初始化SDK
+//    }
 
     private class EditTextTextWatcher implements TextWatcher {
         @Override
