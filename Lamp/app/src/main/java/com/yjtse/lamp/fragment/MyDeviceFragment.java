@@ -187,7 +187,7 @@ public class MyDeviceFragment extends BaseFragment {
                         return;
                     }
                 });
-                return false;
+                return true;
             }
         });
 
