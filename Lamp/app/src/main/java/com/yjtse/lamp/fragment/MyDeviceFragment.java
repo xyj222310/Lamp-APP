@@ -118,7 +118,7 @@ public class MyDeviceFragment extends BaseFragment {
         isPrepared = true;
         if (isFirstLoading) {
             isFirstLoading = false;
-            startDialog("正在加载.....");
+//            startDialog("正在加载.....");
         }
         if (!NetAvailable.isConnect(getActivity())) {
             ToastUtils.showToast(getActivity(), "请检查网络链接", Toast.LENGTH_LONG);

@@ -1,0 +1,20 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_content3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:text=".."
+        android:textColor="@color/essence_tab_text_color_press"/>
+
+    <com.yjtse.lamp.widgets.MyListView
+        android:id="@+id/tab_essence_content_listview3"
+        android:layout_width="match_parent"
+        android:layout_below="@id/tv_content3"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

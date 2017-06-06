@@ -25,9 +25,9 @@ public class Config {
     /**
      * 新闻API请求地址
      */
-    public static final String JUHE_API_URL = "http://v.juhe.cn/toutiao/index";
+    public static final String NEWS_API_URL = "http://v.juhe.cn/toutiao/index";
 
-    public static final String MOB_SEARCH_API_URL = "http://apicloud.mob.com/wx/article/search";
+//    public static final String NEWS_API_URL = "http://apicloud.mob.com/wx/article/search";
 
     public static final String MOB_CATEGORY_API_URL = "http://apicloud.mob.com/wx/article/category/query";
     public static final String KEY_REMEMBER_PWD = "remember_password";
@@ -251,7 +251,8 @@ public class Config {
     /**
      * 聚合数据action GET
      */
-    public static final String PARAMS_KEY = "994570983717d6f5056aaa8651ddc36a";
+    public static final String TAB_TAG = "@dream@";
+    public static final String NEWS_APP_KEY = "994570983717d6f5056aaa8651ddc36a";
     //    public static final String PARAMS_TOP = "top";
     public static final String PARAMS_KEJI = "keji";
     public static final String PARAMS_SHEHUI = "shehui";
@@ -263,17 +264,11 @@ public class Config {
     public static final String PARAMS_CAIJING = "caijing";
     public static final String PARAMS_SHISHANG = "shishang";
 
-    public static final String MOB_APP_KEY = "1e63cc4e67993";
+    //mobAPPKEY
+//    public static final String NEWS_APP_KEY = "1e63cc4e67993";
 
-    public static String getJuheApiUrl() {
-        return JUHE_API_URL;//得到服务器路径加上请求的动作
-    }
-
-    public static String getMobSearchApiUrl() {
-        return MOB_SEARCH_API_URL;//得到服务器路径加上请求的动作
-    }
-
-    public static String getMobCategoryApiUrl() {
-        return MOB_CATEGORY_API_URL;//得到服务器路径加上请求的动作
+    public static String getApiUrl() {
+        return NEWS_API_URL;//得到服务器路径加上请求的动作
+//        return MOB_CATEGORY_API_URL;
     }
 }

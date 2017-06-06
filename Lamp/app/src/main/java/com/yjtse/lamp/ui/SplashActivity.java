@@ -19,7 +19,7 @@ public class SplashActivity extends Activity {
 
         Config.writeToDebug("app Splash...");
 
-        SystemClock.sleep(TimeUnit.SECONDS.toSeconds(10));
+        SystemClock.sleep(TimeUnit.SECONDS.toSeconds(1500));
         String userId = (String) SharedPreferencesUtil.query(this, Config.KEY_USERNAME, "String");
         String userPass = (String) SharedPreferencesUtil.query(this, Config.KEY_PASSWORD, "String");
         boolean isRemember = (boolean) SharedPreferencesUtil.query(this, Config.KEY_REMEMBER_PWD, "boolean");

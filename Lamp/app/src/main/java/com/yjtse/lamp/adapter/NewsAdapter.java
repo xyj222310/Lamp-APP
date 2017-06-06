@@ -3,6 +3,7 @@ package com.yjtse.lamp.adapter;
 import android.content.Context;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +13,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.yjtse.lamp.R;
-import com.yjtse.lamp.domain.WxSearchResult;
+import com.yjtse.lamp.domain.JuheResult;
 
 import java.util.List;
 
 public class NewsAdapter extends BaseAdapter {
 
     private Context context;
-    private List<WxSearchResult.ResultBean.ListBean> data;
+    private List<JuheResult.ResultBean.DataBean> data;
     private int aysncItem;
     private Handler handler;
     private LayoutInflater layoutInflater;
@@ -56,26 +57,29 @@ public class NewsAdapter extends BaseAdapter {
         绑定数据
          */
 
-        if (!TextUtils.isEmpty(data.get(position).getThumbnails())) {
-            String[] thumbnails = data.get(position).getThumbnails().split("$");
-            Glide.with(convertView).load(thumbnails[0]).into(item_news_icon);
+        Log.i("WJ", data.get(position).getAuthor_name());
+
+        if (!TextUtils.isEmpty(data.get(position).getThumbnail_pic_s())) {
+//            String[] thumbnails = data.get(position).getThumbnails().split("$");
+            Glide.with(convertView).load(data.get(position).getThumbnail_pic_s()).into(item_news_icon);
         } else {
             item_news_icon.setImageDrawable(convertView.getResources().getDrawable(R.drawable.ic_launcher));
         }
         item_news_title.setText(data.get(position).getTitle());
-        item_news_author.setText(data.get(position).getSubTitle());
-        item_news_date.setText(data.get(position).getPubTime());
+        item_news_author.setText(data.get(position).getAuthor_name());
+        item_news_date.setText(data.get(position).getDate());
+
         /*
         监听函数
          */
         return convertView;
     }
 
-    public List<WxSearchResult.ResultBean.ListBean> getData() {
+    public List<JuheResult.ResultBean.DataBean> getData() {
         return data;
     }
 
-    public void setData(List<WxSearchResult.ResultBean.ListBean> data) {
+    public void setData(List<JuheResult.ResultBean.DataBean> data) {
         this.data = data;
     }
 

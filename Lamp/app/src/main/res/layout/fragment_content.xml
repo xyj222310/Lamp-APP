@@ -15,7 +15,6 @@
         android:id="@+id/tab_essence_content_listview"
         android:layout_width="match_parent"
         android:layout_below="@id/tv_content"
-        android:layout_height="wrap_content">
-    </com.yjtse.lamp.widgets.MyListView>
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

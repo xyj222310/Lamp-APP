@@ -163,4 +163,33 @@ public class JuheResult {
             }
         }
     }
+
+    public static class CategoryBean {
+        private String cid;
+        private String name;
+
+        public CategoryBean() {
+        }
+
+        public CategoryBean(String cid, String titleName) {
+            this.cid = cid;
+            this.name = titleName;
+        }
+
+        public String getCid() {
+            return cid;
+        }
+
+        public void setCid(String cid) {
+            this.cid = cid;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String titleName) {
+            this.name = titleName;
+        }
+    }
 }

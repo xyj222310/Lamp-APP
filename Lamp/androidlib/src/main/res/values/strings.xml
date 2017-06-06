@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">AndroidLib</string>
+    <item type="id" name="scrollview"/>
+
+
+    <string name="no_network">当前无网络连接</string>
+    <string name="bye_burger_bottom_behavior">ren.solid.library.behavior.byeburgernavigationview.ByeBurgerBottomBehavior</string>
+    <string name="bye_burger_title_behavior">ren.solid.library.behavior.byeburgernavigationview.ByeBurgerTitleBehavior</string>
+    <string name="ic_collection">我的收藏</string>
+    <string name="my_order">我的订单</string>
+    <string name="my_collection">我的收藏</string>
+    <string name="help_feedback">帮助与反馈</string>
+    <string name="sectting">设置</string>
+    <string name="share_frend">分享好友</string>
+
+</resources>
