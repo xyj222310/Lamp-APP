@@ -182,11 +182,9 @@ public class MyDeviceFragment extends BaseFragment {
                         msg.arg1 = position;
                         msg.what = Config.MESSAGE_WHAT_DEC_DEVICE;
                         handler.sendMessage(msg);
-                        builder.setNegativeButton("no", null);
-                        builder.create().show();
                         return;
                     }
-                });
+                }).setNegativeButton("no", null).create().show();
                 return true;
             }
         });
