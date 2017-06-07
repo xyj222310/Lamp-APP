@@ -20,6 +20,8 @@ import com.yjtse.lamp.fragment.childFrag.ContentFragment2;
 import com.yjtse.lamp.fragment.childFrag.ContentFragment3;
 import com.yjtse.lamp.fragment.childFrag.ContentFragment4;
 import com.yjtse.lamp.fragment.childFrag.ContentFragment5;
+import com.yjtse.lamp.fragment.childFrag.ContentFragment6;
+import com.yjtse.lamp.fragment.childFrag.ContentFragment7;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,9 +89,13 @@ public class SettingFragment extends BaseFragment implements ViewPager.OnPageCha
                 case 4:
                     fragment = new ContentFragment5();
                     break;
-//                case 5:
-//                    fragment = new ContentFragment6();
-//                    break;
+                case 5:
+                    fragment = new ContentFragment6();
+                    break;
+                case 6:
+                    fragment = new ContentFragment7();
+                    break;
+
             }
             fragmentList.add(i, fragment);
             Bundle bundle = new Bundle();

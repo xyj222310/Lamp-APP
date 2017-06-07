@@ -183,10 +183,9 @@
         <item>国际@dream@guoji</item>
         <item>社会@dream@shehui</item>
 
-        <!--<item>军事@dream@junshi</item>-->
-
+        <item>军事@dream@junshi</item>
+        <item>国内@dream@guonei</item>
         <!--<item>娱乐@dream@yule</item>-->
-        <!--<item>国内@dream@guonei</item>-->
         <!--<item>财经@dream@caijing</item>-->
     </array>
 
